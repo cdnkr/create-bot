@@ -36,6 +36,7 @@ ${description}`
         };
 
         setMessages([...messages, newMessage]);
+        setShowModal(false);
     }
 
     return (
