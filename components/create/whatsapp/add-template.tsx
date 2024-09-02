@@ -28,7 +28,7 @@ function AddTemplate(props: Props) {
     function onAddClick() {
         const newMessage: WhatsAppMessage = {
             time: getTime(),
-            sent: true,
+            sent: false,
             msg:
                 `*${title}*
 
