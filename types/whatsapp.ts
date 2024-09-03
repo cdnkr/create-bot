@@ -1,4 +1,4 @@
-export type WhatsAppMessageType = 
+export type WhatsAppMessageType =
     | WhatsAppTextMessage
     | WhatsAppImageMessage
     | WhatsAppDocumentMessage
@@ -74,6 +74,8 @@ export interface WhatsAppInteractiveButtonMessage extends WhatsAppBaseMessage {
             text?: string;
             image?: {
                 id: string;
+                // for use in chat demo
+                link?: string;
             };
         };
         body: {
@@ -102,13 +104,7 @@ export interface WhatsAppInteractiveCtaUrlMessage extends WhatsAppBaseMessage {
         footer?: {
             text: string;
         };
-        action: {
-            name: "cta_url";
-            parameters: {
-                display_text: string;
-                url: string;
-            };
-        };
+        action: WhatsAppAction;
     };
 }
 
@@ -121,6 +117,8 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
             text?: string;
             image?: {
                 id: string;
+                // for use in chat demo
+                link?: string;
             };
         };
         body: {
@@ -129,12 +127,33 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
         footer?: {
             text: string;
         };
-        action: {
-            buttons: WhatsAppMessageReplyButton[];
-        };
+        action: WhatsAppAction;
     };
 }
 
+export type WhatsAppAction = {
+    sections: WhatsAppListMessageSection[];
+    button: string;
+} | {
+    buttons: WhatsAppMessageReplyButton[];
+} | {
+    name: "cta_url";
+    parameters: {
+        display_text: string;
+        url: string;
+    };
+};
+
+export interface WhatsAppListMessageSection {
+    title: string;
+    rows: WhatsAppListMessageSectionRow[];
+}
+
+export interface WhatsAppListMessageSectionRow {
+    id: string;
+    title: string;
+    description: string;
+}
 
 export interface WhatsAppMessageReplyButton {
     type: "reply";
