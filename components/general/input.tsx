@@ -27,7 +27,7 @@ function Input({
                 value={value}
                 onChange={onChange}
                 type='text'
-                className={`${className} ${icon ? 'ps-12' : ''} 'rounded-full p-2.5 w-full border-none text-base md:text-sm block bg-gray-100 border-orange-600 placeholder-gray-400 focus:ring-orange-500 focus:border-orange-500`}
+                className={`${className} ${icon ? 'ps-12' : ''} 'rounded-full p-2.5 rounded-lg w-full text-base md:text-sm block bg-gray-100 placeholder-gray-400  border-transparent border-solid border-4 focus:border-orange-300 focus:outline-none`}
                 placeholder={placeholder}
             />
         </div>
