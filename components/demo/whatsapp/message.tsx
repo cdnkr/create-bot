@@ -2,6 +2,7 @@ import { WhatsAppMessageType } from "@/types/whatsapp";
 import { isLink } from "@/utils/url";
 import { IoListOutline } from "react-icons/io5";
 import React from "react";
+import { getTime } from "@/utils/time";
 
 interface Props {
   message: WhatsAppMessageType;
@@ -44,19 +45,21 @@ function Message({ message }: Props) {
   return (
     // Message container
     <div
-      className={`flex justify-center items-center rounded-md w-fit my-1 ${!message.isBot ? "bg-[#005c4b] ml-auto" : "bg-[#202d33] mr-auto"
-        }`}
+      className={`flex justify-center items-center rounded-md w-fit my-1 ${!message.isBot ? "bg-[#005c4b] ml-auto" : "bg-[#202d33] mr-auto"}`}
     >
       {/* Image message */}
       {(message.type === 'image') && (
         <div className="relative w-100 p-2">
-          <img
-            src={message.image.link}
-            alt="img_message"
-            className="rounded-md max-w-[270px] w-100"
-          />
+          <div className="w-full">
+            <img
+              src={message.image.link || './assets/whatsapp/images/demo.png'}
+              alt="img_message"
+              className="rounded-md max-w-[270px] w-100"
+            />
+            {formatMessageText(message.image.caption || 'Caption')}
+          </div>
           <p className="absolute right-2 bottom-3 text-[#8796a1] text-[10px] min-w-[50px]">
-            {message.time}
+            {message.time || getTime()}
           </p>
         </div>
       )}
@@ -64,11 +67,10 @@ function Message({ message }: Props) {
       {/* Text (link/normal) message */}
       {(message.type === 'text') && (
         <div
-          className="flex justify-between items-end max-w-[410px] p-2"
-          style={{ wordBreak: "break-word" }}
+          className="flex justify-between break-words items-end max-w-[410px] p-2"
         >
-          {formatMessageText(message.text.body)}
-          <p className="text-[#8796a1] text-[10px] min-w-[50px]">{message.time}</p>
+          {formatMessageText(message.text.body || 'Body')}
+          <p className="text-[#8796a1] text-[10px] min-w-[50px]">{message.time || getTime()}</p>
         </div>
       )}
 
@@ -76,37 +78,36 @@ function Message({ message }: Props) {
       {(message.type === 'interactive') && (
         <div className="w-full flex flex-col">
           <div
-            className="flex justify-between items-end max-w-[410px] p-2"
-            style={{ wordBreak: "break-word" }}
+            className="justify-between relative break-words items-end w-full max-w-[410px] p-2"
           >
             <div className="w-full flex flex-col gap-2 mb-1">
               {(message.interactive.header?.type === 'text') ? (
                 <p className="text-white whitespace-pre-line text-base font-bold mr-2 inline">
-                  {message.interactive.header.text}
+                  {message.interactive.header.text || 'Header'}
                 </p>
               ) : (message.interactive.header?.type === 'image') && (
-                <div className="relative w-100 p-2">
-                  {message.interactive.header?.image?.link && (
-                    <img
-                      src={message.interactive.header.image.link}
-                      alt="img_message"
-                      className="rounded-md max-w-[270px] w-100"
-                    />
-                  )}
+                <div className="relative w-full">
+                  <img
+                    src={message.interactive.header?.image?.link || './assets/whatsapp/images/demo.png'}
+                    alt="img_message"
+                    className="rounded-md w-full"
+                  />
                 </div>
               )}
-              {message.interactive.body?.text && formatMessageText(message.interactive.body.text)}
+              {message.interactive.body?.text ? formatMessageText(message.interactive.body.text) : formatMessageText('Body')}
             </div>
-            <p className="text-[#8796a1] text-[10px] min-w-[50px]">{message.time}</p>
+            <p className="absolute right-2 bottom-3 text-[#8796a1] text-[10px] min-w-[50px]">
+              {message.time || getTime()}
+            </p>
           </div>
-          {message.interactive?.action?.button && (
+          {(typeof message.interactive?.action?.button === 'string') && (
             <>
               <hr className="w-full" />
               <div className="w-full p-3 gap-1.5 text-sm text-green-500 flex justify-center items-center cursor-pointer">
                 <div className="text-[22px]">
                   <IoListOutline />
                 </div>
-                {message.interactive.action.button}
+                {message.interactive.action.button || 'Action button'}
               </div>
             </>
           )}
