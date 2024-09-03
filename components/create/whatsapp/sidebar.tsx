@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react'
 import Button from '../../general/button'
-import { WhatsAppMessage } from '@/types/whatsapp'
+import { WhatsAppMessageType } from '@/types/whatsapp'
 import AddTemplate from './add-template';
 
 interface Props {
-    messages: WhatsAppMessage[];
-    setMessages: (val: WhatsAppMessage[]) => void;
+    messages: WhatsAppMessageType[];
+    setMessages: (val: WhatsAppMessageType[]) => void;
 }
 
 function Sidebar(props: Props) {
@@ -18,16 +18,20 @@ function Sidebar(props: Props) {
 
     const [showAddTemplate, setShowAddTemplate] = useState(false);
 
+    const hasInitialMessage = Boolean(messages.length === 0);
+    const addNewTitle = hasInitialMessage ? 'Add welcome message' : 'Add a bot message';
+
     return (
         <>
             <div className='w-full'>
                 <Button
-                    text='Add welcome message'
+                    text={addNewTitle}
                     className='w-full'
                     onClick={() => setShowAddTemplate(true)}
                 />
             </div>
-            <AddTemplate 
+            <AddTemplate
+                modalTitle={addNewTitle}
                 messages={messages}
                 setMessages={setMessages}
                 showModal={showAddTemplate}
