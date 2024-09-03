@@ -1,6 +1,7 @@
 import Message from '@/components/demo/whatsapp/message';
 import Button from '@/components/general/button';
 import Input from '@/components/general/input';
+import Label from '@/components/general/label';
 import Modal from '@/components/general/modal';
 import messageTypeInitializers from '@/data/whatsapp/add-message-initializers';
 import { WhatsAppMessageType } from '@/types/whatsapp';
@@ -114,28 +115,27 @@ function AddTemplate(props: Props) {
         return capitalize(str.split('.').slice(1).join(' ').replace(/\stext/g, ''));
     }
 
-    const renderInputs = (obj: WhatsAppMessageType, parentKey = ''): (JSX.Element | null)[] => {
-        return Object.keys(obj).map((key) => {
+    const renderInputs = (messageObj: WhatsAppMessageType, parentKey = ''): (JSX.Element | null)[] => {
+        return Object.keys(messageObj).map((key) => {
 
             // @ts-ignore the keys are keysing
-            const value = obj[key];
+            const value = messageObj[key];
             const fullKey = parentKey ? `${parentKey}.${key}` : key;
 
             const shouldRenderInput = determineShouldRenderInput(fullKey);
 
             if (typeof value === 'string' && shouldRenderInput) {
                 return (
-                    <div className='w-full'>
-                        <Input
-                            key={fullKey}
-                            placeholder={formatPlaceholder(fullKey)}
-                            value={getValue(fullKey)}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(fullKey, e.target.value)}
-                        />
-                    </div>
+                    <Input
+                        label={formatPlaceholder(fullKey)}
+                        key={fullKey}
+                        placeholder={formatPlaceholder(fullKey)}
+                        value={getValue(fullKey)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(fullKey, e.target.value)}
+                    />
                 );
             } else if (typeof value === 'object' && value !== null) {
-                return <div key={fullKey} className='w-full flex flex-col gap-5'>{renderInputs(value, fullKey)}</div>;
+                return <div key={fullKey} className='w-full flex flex-col gap-2'>{renderInputs(value, fullKey)}</div>;
             } else {
                 return null;
             }
@@ -149,24 +149,39 @@ function AddTemplate(props: Props) {
         >
             <div className='w-full p-8 flex flex-col gap-5'>
                 <h1 className='font-bold text-2xl'>{modalTitle}</h1>
-                <div className='flex flex-wrap gap-3'>
-                    {Object.keys(messageTypeInitializers).map(key => (
-                        <div className={`cursor-pointer`} onClick={() => reInitialize(key)}>
-                            <span className={`text-sm ${(message?.messageKey === key) ? 'text-black underline' : 'text-gray-600'} hover:underline transition-all`}>{camelCaseToText(key)}</span>
-                        </div>
-                    ))}
-                </div>
                 <Input
-                    placeholder='Template name'
+                    label='Template name'
+                    placeholder='E.g. Find out more'
                     value={templateName}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setTemplateName(e.target.value)}
                 />
-                <hr />
+                <hr className='border-gray-400' />
+                <div>
+                    <Label label='Select message type' />
+                    <div className='flex flex-wrap gap-y-1 gap-x-5'>
+                        {Object.keys(messageTypeInitializers).map(key => (
+                            <div className={`cursor-pointer`} onClick={() => reInitialize(key)}>
+                                <span className={`text-sm ${(message?.messageKey === key) ? 'text-black underline' : 'text-gray-600'} hover:underline transition-all`}>{camelCaseToText(key)}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                {/* {(message.type === 'interactive') && (message.interactive.type === 'button') && Array.isArray(message.interactive.action.buttons) && message.interactive.action.buttons.map((button, i) => (
+                    <div className='w-full'>
+                        <label className='text-sm font-bold'>Button {i}</label>
+                        <Input
+                            placeholder='E.g. Find out more'
+                            value={getInteractiveButtonValue(i)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setInteractiveButtonValue(i, e.target.value)}
+                        />
+                    </div>
+                ))} */}
                 <div className='flex w-full gap-5'>
-                    <div className='flex w-2/3 flex-col gap-5'>
+                    <div className='flex w-2/3 flex-col gap-2'>
                         {renderInputs(message)}
                     </div>
                     <div className='w-1/2'>
+                        <Label label='Preview' />
                         <Message
                             message={message}
                         />
