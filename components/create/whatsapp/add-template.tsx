@@ -26,14 +26,14 @@ function AddTemplate(props: Props) {
     const [templateName, setTemplateName] = useState('');
     const [header, setHeader] = useState('');
     const [body, setBody] = useState('');
-    const [description, setDescription] = useState('');
+    const [menuButtonText, setMenuButtonText] = useState('');
     const [buttons, setButtons] = useState([]);
 
     function onAddClick() {
         const newMessage: WhatsAppMessageType = {
-            time: getTime(),
-            isBot: true,
             type: 'interactive',
+            isBot: true,
+            time: getTime(),
             interactive: {
                 type: 'button',
                 header: {
@@ -44,7 +44,8 @@ function AddTemplate(props: Props) {
                     text: body
                 },
                 action: {
-                    buttons
+                    button: menuButtonText,
+                    sections: []
                 },
             }
         };
@@ -74,15 +75,22 @@ function AddTemplate(props: Props) {
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setHeader(e.target.value)}
                         />
                         <Input
-                            placeholder='Description'
+                            placeholder='Body'
                             value={body}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setBody(e.target.value)}
                         />
+                        <Input
+                            placeholder='Menu button text'
+                            value={menuButtonText}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setMenuButtonText(e.target.value)}
+                        />
                     </div>
-                    <div className='w-1/3'>
+                    <div className='w-1/2'>
                         <Message
                             message={{
                                 type: 'interactive',
+                                isBot: true,
+                                time: getTime(),
                                 interactive: {
                                     type: 'button',
                                     header: {
@@ -93,7 +101,8 @@ function AddTemplate(props: Props) {
                                         text: body
                                     },
                                     action: {
-                                        buttons
+                                        button: menuButtonText,
+                                        sections: []
                                     },
                                 }
                             }}
