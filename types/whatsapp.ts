@@ -10,8 +10,11 @@ export type WhatsAppMessageType =
 
 export interface WhatsAppBaseMessage {
     // For use in demo/editor
+    templateName?: string;
+    id?: string;
     time?: string;
     isBot?: boolean;
+    messageKey?: string;
     // WA specific
     messaging_product?: "whatsapp";
     recipient_type?: "individual";
@@ -84,9 +87,7 @@ export interface WhatsAppInteractiveButtonMessage extends WhatsAppBaseMessage {
         footer?: {
             text: string;
         };
-        action: {
-            buttons: WhatsAppMessageReplyButton[];
-        };
+        action: WhatsAppAction;
     };
 }
 
@@ -116,7 +117,7 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
             type: "text" | "image";
             text?: string;
             image?: {
-                id: string;
+                id?: string;
                 // for use in chat demo
                 link?: string;
             };
@@ -132,13 +133,11 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
 }
 
 export type WhatsAppAction = {
-    sections: WhatsAppListMessageSection[];
-    button: string;
-} | {
-    buttons: WhatsAppMessageReplyButton[];
-} | {
-    name: "cta_url";
-    parameters: {
+    sections?: WhatsAppListMessageSection[];
+    button?: string;
+    buttons?: WhatsAppMessageReplyButton[];
+    name?: "cta_url";
+    parameters?: {
         display_text: string;
         url: string;
     };
