@@ -29,7 +29,7 @@ function FlowCard({ message }: Props) {
                                         {message.interactive.action?.buttons.map(button => (
                                             <div>
                                                 <span>{button.reply.title}</span>
-                                                <div className='border-[1px] border-solid border-gray-300 text-gray-300 rounded-md flex items-center justify-center'>
+                                                <div className='px-2 py-0.5 cursor-pointer border-[1px] border-solid border-gray-500 text-gray-500 rounded-md flex items-center justify-center'>
                                                     <BiPlusCircle /> Assign template
                                                 </div>
                                             </div>
