@@ -1,9 +1,10 @@
 'use-client'
 
-import React, { useState } from 'react'
-import Button from '../../general/button'
-import { WhatsAppMessageType } from '@/types/whatsapp'
+import { WhatsAppMessageType } from '@/types/whatsapp';
+import { useState } from 'react';
+import Button from '../../general/button';
 import AddTemplate from './add-template';
+import FlowCard from './flow/card';
 
 interface Props {
     messages: WhatsAppMessageType[];
@@ -30,6 +31,9 @@ function Sidebar(props: Props) {
                     onClick={() => setShowAddTemplate(true)}
                 />
             </div>
+            {messages && (messages.length > 0) && messages.filter(message => message.isBot).map((message) => (
+                <FlowCard message={message} />
+            ))}
             <AddTemplate
                 modalTitle={addNewTitle}
                 messages={messages}
