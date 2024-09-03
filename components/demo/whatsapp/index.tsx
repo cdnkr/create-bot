@@ -9,14 +9,19 @@ import { BiHappy } from "react-icons/bi";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BsFillMicFill } from "react-icons/bs";
 import { getTime } from "../../../utils/time";
-import { WhatsAppMessage } from "../../../types/whatsapp";
+import { WhatsAppMessageType } from "../../../types/whatsapp";
+
+const BOT_INFO = {
+  name: 'Sample bot',
+  picture: './assets/whatsapp/images/demo.png'
+}
 
 interface Props {
-  initialMessages: WhatsAppMessage[]
+  initialMessages: WhatsAppMessageType[]
 }
 
 function WhatsAppChatDemo({ initialMessages }: Props) {
-  const [messages, setMessages] = useState<WhatsAppMessage[]>([...initialMessages]);
+  const [messages, setMessages] = useState<WhatsAppMessageType[]>([...initialMessages]);
   const [typing, setTyping] = useState(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -26,8 +31,8 @@ function WhatsAppChatDemo({ initialMessages }: Props) {
     setMessages([...initialMessages]);
   }, [initialMessages]);
 
-  const addMessage = (msg: WhatsAppMessage) => {
-    const newMessages: WhatsAppMessage[] = [...messages, msg];
+  const addMessage = (msg: WhatsAppMessageType) => {
+    const newMessages: WhatsAppMessageType[] = [...messages, msg];
     setMessages(newMessages);
   };
 
@@ -40,9 +45,13 @@ function WhatsAppChatDemo({ initialMessages }: Props) {
 
   const handleImgUpload = () => {
     addMessage({
-      img: '/assets/whatsapp/images/demo.png',
+      type: 'image',
+      isBot: false,
+      image: {
+        link: './assets/whatsapp/images/demo.png',
+        caption: inputRef?.current?.value || ''
+      },
       time: getTime(),
-      sent: true,
     });
   };
 
@@ -55,9 +64,13 @@ function WhatsAppChatDemo({ initialMessages }: Props) {
 
     if (inputRef.current.value.length > 0) {
       addMessage({
-        msg: inputRef.current.value,
+        type: 'text',
+        text: {
+          body: inputRef.current.value,
+          preview_url: true
+        },
         time: getTime(),
-        sent: true,
+        isBot: false,
       });
       inputRef.current.value = "";
       inputRef.current.focus();
@@ -82,14 +95,14 @@ function WhatsAppChatDemo({ initialMessages }: Props) {
 
   return (
     // ChatDetail main container
-    <div className="flex flex-col h-auto no-scrollbar rounded-xl overflow-hidden">
+    <div className="flex flex-col h-[80vh] no-scrollbar rounded-xl overflow-hidden">
       {/* Contact nav */}
       <div className="flex justify-between bg-[#202d33] h-[60px] p-3">
         {/* Contact info */}
         <div className="flex items-center">
           {/* Profile picture */}
           <img
-            src='./assets/whatsapp/images/demo.png'
+            src={BOT_INFO.picture}
             alt="profile_picture"
             className="rounded-full w-[45px] h-[45px] mr-5"
           />
@@ -97,8 +110,7 @@ function WhatsAppChatDemo({ initialMessages }: Props) {
           {/* Info */}
           <div className="flex flex-col">
             {/* Contact */}
-            <h1 className="text-white font-medium">Sample bot</h1>
-
+            <h1 className="text-white font-medium">{BOT_INFO.name}</h1>
             {/* Status */}
             <p className="text-[#8796a1] text-xs">online</p>
           </div>
@@ -113,16 +125,12 @@ function WhatsAppChatDemo({ initialMessages }: Props) {
 
       {/* Messages section */}
       <div
-        className="bg-[#0a131a] bg-contain overflow-y-scroll h-96"
+        className="bg-[#0a131a] h-full bg-contain overflow-y-scroll"
         style={{ padding: "12px 7%" }}
       >
-        {messages.map((msg) => (
+        {messages.map((message) => (
           <Message
-            msg={msg.msg}
-            time={msg.time}
-            isLink={msg.isLink}
-            img={msg.img}
-            sent={msg.sent}
+            message={message}
           />
         ))}
         <div ref={bottomRef} />
