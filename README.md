@@ -2,6 +2,32 @@
 
 This project provides a template to create a WhatsApp chatbot. It allows users to add and demo bot messages, design message flows, and deploy the Chatbot by adding their WhatsApp Business API credentials.
 
+## TODO
+
+### front-end
+
+1. Add display and editing functionality for interactive list menus
+2. Add display and editing support for the remaining WhatsApp message types
+3. Improve look and feel of select message type by adding icons/skeletons for each message type
+4. Add image upload support on front-end from message editing
+5. Add logic for follow up messages - flow logic
+6. Add error/retry WhatsApp message support
+
+### back-end
+
+1. Add image upload support on back-end to cloud service like cloudinary `{userId}/{flowId}/images/{imageId}.{imageFileExtension}`
+2. Export flow to JSON - write to file/DB
+   - Could write as JSON file on cloudinary - `userId/flowId`
+3. Import flow server side and assign to verified WhatsApp number using a webhook
+4. User sign in - social sign in - start with Google
+
+### both
+
+1. Add message actions - e.g. send email, slack w/ user response
+2. Manage user phone numbers
+3. Show how to documentation/links/video on how to set up WhatsApp business number on Meta Developers console
+4. Assign verified phone number to flow - show QR to test https://wa.me/{number}?text=hi 
+
 ## Features
 
 - **Message Demo**: Easily add and preview bot messages.
