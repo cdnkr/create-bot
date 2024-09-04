@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WhatsApp Chatbot Template
+
+This project provides a template to create a WhatsApp chatbot. It allows users to add and demo bot messages, design message flows, and deploy the Chatbot by adding their WhatsApp Business API credentials.
+
+## Features
+
+- **Message Demo**: Easily add and preview bot messages.
+- **Flow Design**: Create and manage your chatbot's message flow.
+- **Deployment**: Integrate your WhatsApp Business phone number and secret key, and deploy your chatbot.
+
+## Prerequisites
+
+Before you start, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (version 14.x or later)
+- npm, yarn, pnpm, or bun as your package manager
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Clone the repository:**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Install dependencies:**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   Choose your preferred package manager:
 
-## Learn More
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   # or
+   bun install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Run the development server:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. **Open the application:**
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to see the result.
