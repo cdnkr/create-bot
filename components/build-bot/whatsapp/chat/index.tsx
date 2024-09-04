@@ -1,7 +1,8 @@
 import SelectMessageType from "@/components/build-bot/whatsapp/select-message-type";
 import Modal from "@/components/general/modal";
-import useAddWhatsAppMessage from "@/hooks/useAddWhatsAppMessage";
-import { useWhatsAppChatDemo } from "@/hooks/useWhatsAppChatDemo";
+import messageTypeInitializers from "@/data/whatsapp/message-type-initializers";
+import { useNestedState } from "@/hooks/state/useNestedState";
+import { useWhatsAppChatDemo } from "@/hooks/whatsapp/useWhatsAppChatDemo";
 import { WhatsAppMessageType } from "@/types/whatsapp";
 import { useState } from "react";
 import { AiOutlinePaperClip } from "react-icons/ai";
@@ -33,10 +34,10 @@ function WhatsAppChat({ initialMessages }: Props) {
 
   const {
     state: newMessage,
-    reInitialize,
+    resetState,
     getNestedState,
     setNestedState
-  } = useAddWhatsAppMessage('text');
+  } = useNestedState(null);
 
   const [showSelectMessageType, setShowSelectMessageType] = useState(false);
 
@@ -46,11 +47,11 @@ function WhatsAppChat({ initialMessages }: Props) {
 
   function onAddDoneClick() {
     setMessages([...messages, newMessage]);
-    reInitialize(null);
+    resetState(null);
   }
 
   function onSelectMessageTypeClick(key: string) {
-    reInitialize(key);
+    resetState(messageTypeInitializers[key]);
     setShowSelectMessageType(false);
   }
 

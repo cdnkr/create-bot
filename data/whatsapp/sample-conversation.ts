@@ -1,4 +1,4 @@
-import { WhatsAppMessageType } from "../types/whatsapp";
+import { WhatsAppMessageType } from "@/types/whatsapp";
 
 export const sampleConversation: WhatsAppMessageType[] = [
   {

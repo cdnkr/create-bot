@@ -1,5 +1,5 @@
 import Label from '@/components/general/label';
-import messageTypeInitializers from '@/data/whatsapp/add-message-initializers';
+import messageTypeInitializers from '@/data/whatsapp/message-type-initializers';
 import { camelCaseToText } from '@/utils/text';
 
 interface Props {
