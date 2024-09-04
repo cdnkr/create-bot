@@ -3,7 +3,7 @@ import { isLink } from "@/utils/url";
 import { IoListOutline } from "react-icons/io5";
 import React from "react";
 import { getTime } from "@/utils/time";
-import EditWhatsAppMessageInput from "./edit-input";
+import EditWhatsAppMessageField from "./edit-field";
 
 interface Props {
   message: WhatsAppMessageType;
@@ -59,7 +59,7 @@ function Message({ message, editing = null }: Props) {
               className="rounded-md max-w-[270px] w-100"
             />
             {!editing ? formatMessageText(message.image.caption || 'Caption') : (
-              <EditWhatsAppMessageInput
+              <EditWhatsAppMessageField
                 value={editing.get(['image', 'caption'])}
                 onChange={e => editing.set(['image', 'caption'], e.target.value)}
                 placeholder="Caption"
@@ -78,7 +78,7 @@ function Message({ message, editing = null }: Props) {
           className="flex justify-between break-words items-end max-w-[410px] p-2"
         >
           {!editing ? formatMessageText(message.text.body || 'Body') : (
-            <EditWhatsAppMessageInput
+            <EditWhatsAppMessageField
               value={editing.get(['text', 'body'])}
               onChange={e => editing.set(['text', 'body'], e.target.value)}
               placeholder="Body"
@@ -102,7 +102,7 @@ function Message({ message, editing = null }: Props) {
                       {message.interactive.header.text || 'Header'}
                     </p>
                   ) : (
-                    <EditWhatsAppMessageInput
+                    <EditWhatsAppMessageField
                       value={editing.get(['interactive', 'header', 'text'])}
                       onChange={e => editing.set(['interactive', 'header', 'text'], e.target.value)}
                       placeholder="Header"
@@ -123,7 +123,7 @@ function Message({ message, editing = null }: Props) {
                   {message.interactive.body?.text ? formatMessageText(message.interactive.body.text) : formatMessageText('Body')}
                 </>
               ) : (
-                <EditWhatsAppMessageInput
+                <EditWhatsAppMessageField
                   value={editing.get(['interactive', 'body', 'text'])}
                   onChange={e => editing.set(['interactive', 'body', 'text'], e.target.value)}
                   placeholder="Body"
@@ -146,7 +146,7 @@ function Message({ message, editing = null }: Props) {
                     {message.interactive.action.button || 'Action button'}
                   </>
                 ) : (
-                  <EditWhatsAppMessageInput
+                  <EditWhatsAppMessageField
                     value={editing.get(['interactive', 'action', 'button'])}
                     onChange={e => editing.set(['interactive', 'action', 'button'], e.target.value)}
                     placeholder="Button"

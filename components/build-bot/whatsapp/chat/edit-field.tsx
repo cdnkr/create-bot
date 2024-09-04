@@ -6,7 +6,7 @@ interface Props {
     placeholder: string;
 }
 
-function EditWhatsAppMessageInput(props: Props) {
+function EditWhatsAppMessageField(props: Props) {
     const {
         value,
         onChange,
@@ -23,4 +23,4 @@ function EditWhatsAppMessageInput(props: Props) {
     )
 }
 
-export default EditWhatsAppMessageInput;
+export default EditWhatsAppMessageField;

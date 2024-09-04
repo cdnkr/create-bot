@@ -8,7 +8,6 @@ interface Props {
 
 function SelectMessageType({ onSelectMessageTypeClick }: Props) {
     return (
-
         <div>
             <Label label="Select message type" />
             <div className="flex flex-wrap gap-y-1 gap-x-5">

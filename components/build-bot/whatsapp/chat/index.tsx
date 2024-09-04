@@ -1,4 +1,4 @@
-import SelectMessageType from "@/components/create/whatsapp/select-message-type";
+import SelectMessageType from "@/components/build-bot/whatsapp/select-message-type";
 import Modal from "@/components/general/modal";
 import useAddWhatsAppMessage from "@/hooks/useAddWhatsAppMessage";
 import { useWhatsAppChatDemo } from "@/hooks/useWhatsAppChatDemo";
@@ -17,7 +17,7 @@ interface Props {
   initialMessages: WhatsAppMessageType[];
 }
 
-function WhatsAppChatDemo({ initialMessages }: Props) {
+function WhatsAppChat({ initialMessages }: Props) {
   const {
     messages,
     setMessages,
@@ -148,4 +148,4 @@ function WhatsAppChatDemo({ initialMessages }: Props) {
   );
 }
 
-export default WhatsAppChatDemo;
+export default WhatsAppChat;

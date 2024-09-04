@@ -1,4 +1,4 @@
-import BuildWhatsAppBot from "@/components/create/whatsapp";
+import BuildWhatsAppBot from "@/components/build-bot/whatsapp";
 
 export default function Home() {
   return (
