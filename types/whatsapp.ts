@@ -24,6 +24,7 @@ export interface WhatsAppBaseMessage {
 
 export interface WhatsAppTextMessage extends WhatsAppBaseMessage {
     type: "text";
+    safeType: WhatsAppMessageSafeType.WhatsAppTextMessage;
     text: {
         preview_url: boolean;
         body: string;
@@ -32,6 +33,7 @@ export interface WhatsAppTextMessage extends WhatsAppBaseMessage {
 
 export interface WhatsAppImageMessage extends WhatsAppBaseMessage {
     type: "image";
+    safeType: WhatsAppMessageSafeType.WhatsAppImageMessage;
     image: {
         id?: string;
         link?: string;
@@ -41,6 +43,7 @@ export interface WhatsAppImageMessage extends WhatsAppBaseMessage {
 
 export interface WhatsAppDocumentMessage extends WhatsAppBaseMessage {
     type: "document";
+    safeType: WhatsAppMessageSafeType.WhatsAppDocumentMessage;
     document: {
         id?: string;
         link?: string;
@@ -51,6 +54,7 @@ export interface WhatsAppDocumentMessage extends WhatsAppBaseMessage {
 
 export interface WhatsAppLocationMessage extends WhatsAppBaseMessage {
     type: "location";
+    safeType: WhatsAppMessageSafeType.WhatsAppLocationMessage;
     location: {
         latitude: string;
         longitude: string;
@@ -61,6 +65,7 @@ export interface WhatsAppLocationMessage extends WhatsAppBaseMessage {
 
 export interface WhatsAppVideoMessage extends WhatsAppBaseMessage {
     type: "video";
+    safeType: WhatsAppMessageSafeType.WhatsAppVideoMessage;
     video: {
         id?: string;
         link?: string;
@@ -70,6 +75,7 @@ export interface WhatsAppVideoMessage extends WhatsAppBaseMessage {
 
 export interface WhatsAppInteractiveButtonMessage extends WhatsAppBaseMessage {
     type: "interactive";
+    safeType: WhatsAppMessageSafeType.WhatsAppInteractiveButtonMessage,
     interactive: {
         type: "button";
         header?: {
@@ -87,12 +93,15 @@ export interface WhatsAppInteractiveButtonMessage extends WhatsAppBaseMessage {
         footer?: {
             text: string;
         };
-        action: WhatsAppAction;
+        action: {
+            buttons: WhatsAppMessageReplyButton[];
+        };
     };
 }
 
 export interface WhatsAppInteractiveCtaUrlMessage extends WhatsAppBaseMessage {
     type: "interactive";
+    safeType: WhatsAppMessageSafeType.WhatsAppInteractiveCtaUrlMessage,
     interactive: {
         type: "cta_url";
         header?: {
@@ -105,12 +114,19 @@ export interface WhatsAppInteractiveCtaUrlMessage extends WhatsAppBaseMessage {
         footer?: {
             text: string;
         };
-        action: WhatsAppAction;
+        action: {
+            name: "cta_url";
+            parameters: {
+                display_text: string;
+                url: string;
+            };
+        };
     };
 }
 
 export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
     type: "interactive";
+    safeType: WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
     interactive: {
         type: "button";
         header?: {
@@ -128,7 +144,10 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
         footer?: {
             text: string;
         };
-        action: WhatsAppAction;
+        action: {
+            button: string;
+            buttons: WhatsAppMessageReplyButton[];
+        };
     };
 }
 
@@ -162,4 +181,16 @@ export interface WhatsAppMessageReplyButton {
 export interface WhatsAppMessageReply {
     id: string;
     title: string;
+}
+
+// added as standard WA Cloud API type field is not sufficient for TypeScript checking
+export enum WhatsAppMessageSafeType {
+    WhatsAppTextMessage = "WhatsAppTextMessage",
+    WhatsAppImageMessage = "WhatsAppImageMessage",
+    WhatsAppDocumentMessage = "WhatsAppDocumentMessage",
+    WhatsAppLocationMessage = "WhatsAppLocationMessage",
+    WhatsAppVideoMessage = "WhatsAppVideoMessage",
+    WhatsAppInteractiveButtonMessage = "WhatsAppInteractiveButtonMessage",
+    WhatsAppInteractiveCtaUrlMessage = "WhatsAppInteractiveCtaUrlMessage",
+    WhatsAppInteractiveListMessage = "WhatsAppInteractiveListMessage"
 }

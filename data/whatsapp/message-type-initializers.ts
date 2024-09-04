@@ -1,6 +1,6 @@
 // https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
 
-import { WhatsAppMessageType } from "@/types/whatsapp";
+import { WhatsAppMessageSafeType, WhatsAppMessageType } from "@/types/whatsapp";
 
 const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     // Text
@@ -8,6 +8,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     text: {
         "isBot": true,
         "messageKey": "text",
+        "safeType": WhatsAppMessageSafeType.WhatsAppTextMessage,
         "type": "text",
         "text": {
             "preview_url": true,
@@ -19,6 +20,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     image: {
         "isBot": true,
         "messageKey": "image",
+        "safeType": WhatsAppMessageSafeType.WhatsAppImageMessage,
         "type": "image",
         "image": {
             // "id": "", /* Only if using uploaded media */
@@ -31,6 +33,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     document: {
         "isBot": true,
         "messageKey": "document",
+        "safeType": WhatsAppMessageSafeType.WhatsAppDocumentMessage,
         "type": "document",
         "document": {
             // "id": "", /* Only if using uploaded media */
@@ -44,6 +47,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     location: {
         "isBot": true,
         "messageKey": "location",
+        "safeType": WhatsAppMessageSafeType.WhatsAppLocationMessage,
         "type": "location",
         "location": {
             "latitude": "",
@@ -57,6 +61,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     video: {
         "isBot": true,
         "messageKey": "video",
+        "safeType": WhatsAppMessageSafeType.WhatsAppVideoMessage,
         "type": "video",
         "video": {
             "id": "", /* Only if using uploaded media */
@@ -69,6 +74,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     interactiveReplyButton: {
         "isBot": true,
         "messageKey": "interactiveReplyButton",
+        "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveButtonMessage,
         "type": "interactive",
         "interactive": {
             "type": "button",
@@ -100,6 +106,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     interactiveCTAWithUrlButtons: {
         "isBot": true,
         "messageKey": "interactiveCTAWithUrlButtons",
+        "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveCtaUrlMessage,
         "type": "interactive",
         "interactive": {
             "type": "cta_url",
@@ -134,6 +141,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     interactiveListWithImageHeader: {
         "isBot": true,
         "messageKey": "interactiveListWithImageHeader",
+        "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
         "type": "interactive",
         "interactive": {
             "type": "button",
@@ -167,6 +175,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     interactiveListWithTextHeader: {
         "isBot": true,
         "messageKey": "interactiveListWithTextHeader",
+        "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
         "type": "interactive",
         "interactive": {
             "type": "button",
