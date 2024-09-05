@@ -145,10 +145,21 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
             text: string;
         };
         action: {
+            sections: WhatsAppInteractiveListMessageSection[],
             button: string;
-            buttons: WhatsAppMessageReplyButton[];
-        };
+        }
     };
+}
+
+export type WhatsAppInteractiveListMessageSection =                 {
+    title: string;
+    rows: WhatsAppInteractiveListMessageSectionRow[]
+};
+
+export type WhatsAppInteractiveListMessageSectionRow = {
+    id: string;
+    title: string;
+    description: string;
 }
 
 export type WhatsAppAction = {

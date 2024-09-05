@@ -159,15 +159,20 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
             },
             "action": {
                 "button": "",
-                "buttons": [
+                "sections": [
                     {
-                        "type": "reply",
-                        "reply": {
-                            "id": "",
-                            "title": ""
-                        }
+                        "title": "",
+                        "rows": [
+                            {
+                                "id": "",
+                                "title": "",
+                                "description": ""
+                            }
+                            /* Additional rows would go here*/
+                        ]
                     }
-                ]
+                    /* Additional sections would go here */
+                ],
             }
         }
     },
@@ -191,15 +196,20 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
             },
             "action": {
                 "button": "",
-                "buttons": [
+                "sections": [
                     {
-                        "type": "reply",
-                        "reply": {
-                            "id": "",
-                            "title": ""
-                        }
+                        "title": "",
+                        "rows": [
+                            {
+                                "id": "",
+                                "title": "",
+                                "description": ""
+                            }
+                            /* Additional rows would go here*/
+                        ]
                     }
-                ]
+                    /* Additional sections would go here */
+                ],
             }
         }
     },
