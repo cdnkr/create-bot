@@ -1,12 +1,10 @@
-import { WhatsAppInteractiveListMessage, WhatsAppMessageType } from "@/types/whatsapp";
-import { isLink } from "@/utils/url";
-import { IoListOutline } from "react-icons/io5";
-import React from "react";
+import { WhatsAppInteractiveListMessage } from "@/types/whatsapp";
 import { getTime } from "@/utils/time";
-import EditWhatsAppMessageField from "../edit-field";
-import WATextMessage from "./text";
-import WAImageMessage from "./image";
-import { formatMessageText } from "./utils";
+import { useState } from "react";
+import { IoListOutline } from "react-icons/io5";
+import EditWhatsAppMessageField from "../../../edit-field";
+import { formatMessageText } from "../../utils";
+import WAInteractiveListOptions from "./options";
 
 interface Props {
   message: WhatsAppInteractiveListMessage;
@@ -14,6 +12,8 @@ interface Props {
 }
 
 function WAInteractiveListMessage({ message, editing = null }: Props) {
+  const [showListOptions, setShowListOptions] = useState(false);
+
   return (
     <div className="w-full flex flex-col">
       <div
@@ -62,7 +62,7 @@ function WAInteractiveListMessage({ message, editing = null }: Props) {
       {(typeof message.interactive?.action?.button === 'string') && (
         <>
           <hr className="w-full" />
-          <div className="w-full p-3 gap-1.5 text-sm text-green-500 flex justify-center items-center cursor-pointer">
+          <div onClick={() => setShowListOptions(true)} className="w-full p-3 gap-1.5 text-sm text-green-500 flex justify-center items-center cursor-pointer">
             <div className="text-[22px]">
               <IoListOutline />
             </div>
@@ -79,6 +79,14 @@ function WAInteractiveListMessage({ message, editing = null }: Props) {
             )}
           </div>
         </>
+      )}
+      {showListOptions && (
+        <WAInteractiveListOptions
+          sections={message.interactive.action.sections}
+          title={message.interactive.action.button || 'Action button'}
+          setShowListOptions={setShowListOptions}
+          editing={editing}
+        />
       )}
     </div>
   );

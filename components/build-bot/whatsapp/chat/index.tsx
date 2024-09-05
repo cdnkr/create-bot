@@ -60,10 +60,10 @@ function WhatsAppChat({ initialMessages }: Props) {
     if (messages && !messages[messages.length -1].isBot) return 'Add bot reply';
     return 'Add follow up message';
   }
-
+  
   return (
     <>
-      <div className="flex flex-col h-[80vh] no-scrollbar rounded-xl overflow-hidden">
+      <div className="flex relative flex-col h-[80vh] no-scrollbar rounded-xl overflow-hidden">
         <div className="flex justify-between bg-[#202d33] h-[60px] p-3">
           <div className="flex items-center">
             <img

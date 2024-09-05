@@ -1,6 +1,6 @@
 import { WhatsAppMessageSafeType, WhatsAppMessageType } from "@/types/whatsapp";
 import WAImageMessage from "./image";
-import WAInteractiveListMessage from "./interactive-list";
+import WAInteractiveListMessage from "./interactive/list";
 import WATextMessage from "./text";
 
 interface Props {
