@@ -8,9 +8,26 @@ export function getNestedValue(obj: any, path: string[] | string) {
 export function setNestedValue(obj: any, path: string[] | string, value: any): any {
     const keys = Array.isArray(path) ? path : path.split('.');
     if (keys.length === 1) {
+        console.log({ keys, obj, path, value, })
+        // it's an array index not an object index so set the array value
+        if (Array.isArray(obj)) {
+            let arr = [...obj];
+            arr[parseInt(keys[0])] = value;
+            return [...arr];
+        }
+
+        // it's an object
         return { ...obj, [keys[0]]: value };
     }
     const [key, ...restKeys] = keys;
+
+    // it's an array index not an object index so set the array value
+    if (Array.isArray(obj)) {
+        let arr = [...obj];
+        arr[parseInt(key)] = setNestedValue(obj[parseInt(key)] || {}, restKeys, value);
+        return [...arr];
+    }
+
     return {
         ...obj,
         [key]: setNestedValue(obj[key] || {}, restKeys, value)
