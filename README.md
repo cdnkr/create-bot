@@ -6,8 +6,16 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 
 ### front-end
 
-1. Add display and editing functionality for interactive list menus
-2. Add display and editing support for the remaining WhatsApp message types
+1. ~~Add display and editing functionality for interactive list menus~~
+2. Add display and editing support for the remaining WhatsApp message types (3/8)
+   - ~~Text~~
+   - ~~Image~~
+   - Document
+   - Location
+   - Video
+   - Interactive reply buttons
+   - ~~Interactive list~~
+   - Interactive CTA with URL buttons
 3. Improve look and feel of select message type by adding icons/skeletons for each message type
 4. Add image upload support on front-end from message editing
 5. Add logic for follow up messages - flow logic
