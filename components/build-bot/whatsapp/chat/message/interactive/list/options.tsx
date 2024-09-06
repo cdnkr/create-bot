@@ -115,6 +115,7 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, editing
                 ))}
                 {editing && (sections.length < 10) ? (
                     <WhatsAppUtilityButton
+                        className='mt-8'
                         Icon={<GoPlusCircle />}
                         size="small"
                         label="Add section"
