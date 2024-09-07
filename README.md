@@ -2,6 +2,12 @@
 
 This project provides a template to create a WhatsApp chatbot. It allows users to add and demo bot messages, design message flows, and deploy the Chatbot by adding their WhatsApp Business API credentials.
 
+## Features
+
+- **Message Demo**: Easily add and preview bot messages.
+- **Flow Design**: Create and manage your chatbot's message flow.
+- **Deployment**: Integrate your WhatsApp Business phone number verify token and whatsapp token, and deploy your chatbot.
+
 ## TODO
 
 ### front-end
@@ -21,43 +27,50 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
       - fields property e.g. name, surname, dob
    - high level, display WAForm instead of WAMessage
    - WAForm component handles capturing and "sending" messages step by step after user input
-   - Add completion and Failure message related to form
+   - Add completion and failure message related to form
 3. Improve look and feel of select message type by adding icons/skeletons for each message type
 4. Add image upload support on front-end from message editing
-5. Add logic for follow up messages - flow logic
+5. Add build-flow support
+   - ~~Logic~~
+   - Error handling
+   - How-to/info content
 6. Add error/retry WhatsApp message support
 
 ### back-end
 
 1. Add image upload support on back-end to cloud service like cloudinary `{userId}/{flowId}/images/{imageId}.{imageFileExtension}`
-2. Export flow to JSON - write to file/DB
+2. ~~Save flow JSON~~ - ~~write to file~~/DB
+   - ~~fs `/flows/{flowId}}`~~
+   - DB
    - Could write as JSON file on cloudinary - `userId/flowId`
-3. Import flow server side and assign to verified WhatsApp number using a webhook
+3. Import flow server side and use with assigned verified WhatsApp number using a webhook
+   - ~~Implement code~~
+      - `GET /api/whatsapp/webhook`
+         - Verifies webhook
+      - `POST /api/whatsapp/webhook`
+         - Handles user responses and follow-up messages
+   - Add error handling
+   - Test
+      - ~~Add `POST /api/whatsapp/webhook/dev` endpoint for testing flows in development~~
 4. User sign in - social sign in - start with Google
 
 ### both
 
 1. Add message actions - e.g. send email, slack w/ user response
-2. Manage user phone numbers
+2. Manage user bots
 3. Show how to documentation/links/video on how to set up WhatsApp business number on Meta Developers console
 4. Assign verified phone number to flow - show QR to test https://wa.me/{number}?text=hi 
-
-## Features
-
-- **Message Demo**: Easily add and preview bot messages.
-- **Flow Design**: Create and manage your chatbot's message flow.
-- **Deployment**: Integrate your WhatsApp Business phone number and secret key, and deploy your chatbot.
+   - Flow config
+      - Input phone number
+      - Input `VERIFY_TOKEN` (used for webhook verificatino)
+      - Input `WHATSAPP_TOKEN` (used as auth for sending messages)
 
 ## Prerequisites
-
-Before you start, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (version 14.x or later)
 - npm, yarn, pnpm, or bun as your package manager
 
-## Getting Started
-
-Follow these steps to run the development server:
+## Running the development server
 
 1. **Clone the repository:**
 
