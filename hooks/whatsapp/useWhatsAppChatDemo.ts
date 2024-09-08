@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { WhatsAppMessageSafeType, WhatsAppMessageType } from "@/types/whatsapp";
 import { getTime } from "@/utils/time";
-import { WhatsAppMessageType } from "@/types/whatsapp";
+import { useEffect, useRef, useState } from "react";
 
 const BOT_INFO = {
   name: 'Sample bot',
@@ -31,6 +31,7 @@ export function useWhatsAppChatDemo(initialMessages: WhatsAppMessageType[]) {
 
   const handleImgUpload = () => {
     addMessage({
+      safeType: WhatsAppMessageSafeType.WhatsAppImageMessage,
       type: 'image',
       isBot: false,
       image: {
@@ -50,6 +51,7 @@ export function useWhatsAppChatDemo(initialMessages: WhatsAppMessageType[]) {
     if (!inputRef.current || inputRef.current.value.length === 0) return;
 
     addMessage({
+      safeType: WhatsAppMessageSafeType.WhatsAppTextMessage,
       type: 'text',
       text: {
         body: inputRef.current.value,
