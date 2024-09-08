@@ -1,28 +1,36 @@
-import { WhatsAppMessageType } from '@/types/whatsapp';
-import axios from 'axios';
+import { WhatsAppMessageType } from "@/types/whatsapp";
+import axios from "axios";
 
 const token = process.env.WHATSAPP_TOKEN as string;
 const whatsappApiUrl = process.env.WA_API_URL as string;
 
-// added for use later with webhook
-export async function sendWhatsAppMessage(message: WhatsAppMessageType, phoneNumberId: string): Promise<boolean | WhatsAppMessageType> {
-    console.log('SENDING MESSAGE', message);
+export async function sendWhatsAppMessage(
+    to: string, // wa user phone number
+    message: WhatsAppMessageType,
+    phoneNumberId: string,
+    isTestMode?: boolean
+): Promise<WhatsAppMessageType | boolean> {
+    const messagePayload: WhatsAppMessageType = {
+        messaging_product: "whatsapp",
+        recipient_type: "individual",
+        to,
+        ...message
+    };
 
-    if (!message.to) {
-        throw new Error('Err: "to" property missing on `sendWhatsAppMessageType`');
+    if (isTestMode) {
+        return messagePayload;
     }
 
     try {
-        await axios({
-            method: 'POST',
-            url: `${whatsappApiUrl}${phoneNumberId}/messages?access_token=${token}`,
-            data: message,
-            headers: { 'Content-Type': 'application/json' },
+        const requestUrl = `${whatsappApiUrl}${phoneNumberId}/messages?access_token=${token}`;
+
+        await axios.post(requestUrl, messagePayload, {
+            headers: { "Content-Type": "application/json" },
         });
 
         return true;
-    } catch (err) {
-        console.log('WA ERR', JSON.stringify(err));
+    } catch (err: any) {
+        console.error("Error in sendWhatsAppMessage: ", err.message);
         return false;
     }
 }
