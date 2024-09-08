@@ -4,7 +4,7 @@ import messageTypeInitializers from "@/data/whatsapp/message-type-initializers";
 import { useNestedState } from "@/hooks/state/useNestedState";
 import { useWhatsAppChatDemo } from "@/hooks/whatsapp/useWhatsAppChatDemo";
 import { WhatsAppMessageType } from "@/types/whatsapp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiCheckCircle, BiHappy, BiPlus } from "react-icons/bi";
 import { BsFillMicFill } from "react-icons/bs";
@@ -13,6 +13,9 @@ import { MdSearch, MdSend } from "react-icons/md";
 import Message from "./message";
 import RoundedBtn from "./rounded-button";
 import WhatsAppUtilityButton from "./utility-button";
+import { isValidUUID } from "@/utils/uuid";
+import { v4 } from "uuid";
+import axios from "axios";
 
 interface Props {
   initialMessages: WhatsAppMessageType[];
@@ -40,6 +43,10 @@ function WhatsAppChat({ initialMessages }: Props) {
   } = useNestedState(null);
 
   const [showSelectMessageType, setShowSelectMessageType] = useState(false);
+  const [userResponse, setUserResponse] = useState('');
+  const [builtFlow, setBuiltFlow] = useState<any>({
+    id: v4()
+  });
 
   function onAddClick() {
     setShowSelectMessageType(true);
@@ -47,6 +54,30 @@ function WhatsAppChat({ initialMessages }: Props) {
 
   function onAddDoneClick() {
     setMessages([...messages, newMessage]);
+
+    if (messages[messages.length - 1]?.isBot) {
+      resetState(null);
+      return;
+    }
+
+    setBuiltFlow((bf: any) => {
+      const hasStartMessageInFlow = Boolean(bf['start']);
+
+      console.log({
+        hasStartMessageInFlow,
+        userResponse,
+        chk: isValidUUID(userResponse)
+      })
+
+      if (!userResponse && hasStartMessageInFlow) return bf;
+      if (userResponse && !isValidUUID(userResponse)) return bf;
+
+      return {
+        ...bf,
+        [userResponse || 'start']: newMessage
+      };
+    });
+
     resetState(null);
   }
 
@@ -57,10 +88,20 @@ function WhatsAppChat({ initialMessages }: Props) {
 
   function getNewMessagePlaceholder() {
     if (messages && messages.length === 0) return 'Add welcome message';
-    if (messages && !messages[messages.length -1].isBot) return 'Add bot reply';
+    if (messages && !messages[messages.length - 1].isBot) return 'Add bot reply';
     return 'Add follow up message';
   }
-  
+
+  function saveFlow(flow: any) {
+    // TODO: add success failure handling
+    axios.post('/api/flow/save', flow);
+  }
+
+  useEffect(() => {
+    console.log(builtFlow);
+    saveFlow(builtFlow);
+  }, [builtFlow]);
+
   return (
     <>
       <div className="flex relative flex-col h-[80vh] no-scrollbar rounded-xl overflow-hidden">
@@ -87,15 +128,20 @@ function WhatsAppChat({ initialMessages }: Props) {
           style={{ padding: "12px 7%" }}
         >
           {messages.map((message, index) => (
-            <Message key={index} message={message} />
+            <Message
+              key={index}
+              message={message}
+              setUserResponse={setUserResponse}
+              setMessages={setMessages}
+            />
           ))}
           {newMessage && (
-            <Message 
+            <Message
               message={newMessage}
               editing={{
                 get: getNestedState,
                 set: setNestedState
-              }} 
+              }}
             />
           )}
           {!newMessage ? (

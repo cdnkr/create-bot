@@ -5,10 +5,12 @@ import WATextMessage from "./text";
 
 interface Props {
   message: WhatsAppMessageType;
+  setUserResponse?: (val: string) => void;
+  setMessages?: (val: WhatsAppMessageType[] | ((val: WhatsAppMessageType[]) => WhatsAppMessageType[])) => void;
   editing?: { get: (path: string[] | string) => string, set: (path: string[] | string, val: any) => void } | null;
 }
 
-function Message({ message, editing = null }: Props) {
+function Message({ message, setUserResponse, setMessages, editing = null }: Props) {
   return (
     // Message container
     <div
@@ -36,7 +38,9 @@ function Message({ message, editing = null }: Props) {
       {(message.safeType === WhatsAppMessageSafeType.WhatsAppInteractiveListMessage) && (
         <WAInteractiveListMessage
           message={message}
+          setUserResponse={setUserResponse}
           editing={editing}
+          setMessages={setMessages}
         />
       )}
 

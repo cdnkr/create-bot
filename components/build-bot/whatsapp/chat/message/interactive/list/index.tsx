@@ -1,4 +1,4 @@
-import { WhatsAppInteractiveListMessage } from "@/types/whatsapp";
+import { WhatsAppInteractiveListMessage, WhatsAppMessageType } from "@/types/whatsapp";
 import { getTime } from "@/utils/time";
 import { useState } from "react";
 import { IoListOutline } from "react-icons/io5";
@@ -8,10 +8,12 @@ import WAInteractiveListOptions from "./options";
 
 interface Props {
   message: WhatsAppInteractiveListMessage;
+  setUserResponse?: (val: string) => void;
+  setMessages?: (val: WhatsAppMessageType[] | ((val: WhatsAppMessageType[]) => WhatsAppMessageType[])) => void;
   editing?: { get: (path: string[] | string) => string, set: (path: string[] | string, val: any) => void } | null;
 }
 
-function WAInteractiveListMessage({ message, editing = null }: Props) {
+function WAInteractiveListMessage({ message, setUserResponse, setMessages, editing = null }: Props) {
   const [showListOptions, setShowListOptions] = useState(false);
 
   return (
@@ -85,6 +87,8 @@ function WAInteractiveListMessage({ message, editing = null }: Props) {
           sections={message.interactive.action.sections}
           title={message.interactive.action.button || 'Action button'}
           setShowListOptions={setShowListOptions}
+          setUserResponse={setUserResponse}
+          setMessages={setMessages}
           editing={editing}
         />
       )}

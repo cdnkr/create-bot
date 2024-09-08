@@ -1,19 +1,22 @@
-import { WhatsAppInteractiveListMessageSection, WhatsAppInteractiveListMessageSectionRow } from "@/types/whatsapp";
+import { WhatsAppInteractiveListMessageSection, WhatsAppInteractiveListMessageSectionRow, WhatsAppMessageSafeType, WhatsAppMessageType } from "@/types/whatsapp";
 import { stopPropagation } from "@/utils/event";
 import { GoInfo, GoPlusCircle } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import EditWhatsAppMessageField from "../../../edit-field";
 import WhatsAppUtilityButton from "../../../utility-button";
 import { BiCheckCircle } from "react-icons/bi";
+import { v4 } from "uuid";
 
 interface WAInteractiveListOptionsProps {
     sections: WhatsAppInteractiveListMessageSection[];
     title: string;
     setShowListOptions: (val: boolean) => void;
+    setUserResponse?: (val: string) => void;
+    setMessages?: (val: WhatsAppMessageType[] | ((val: WhatsAppMessageType[]) => WhatsAppMessageType[])) => void;
     editing?: { get: (path: string[] | string) => string, set: (path: string[] | string, val: any) => void } | null;
 }
 
-function WAInteractiveListOptions({ sections, title, setShowListOptions, editing }: WAInteractiveListOptionsProps) {
+function WAInteractiveListOptions({ sections, title, setShowListOptions, setUserResponse, setMessages, editing }: WAInteractiveListOptionsProps) {
 
     function close() {
         setShowListOptions(false);
@@ -23,7 +26,7 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, editing
         if (!editing) return;
 
         const newRow = {
-            id: "",
+            id: v4(),
             title: "",
             description: ""
         };
@@ -38,7 +41,7 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, editing
             title: "",
             rows: [
                 {
-                    id: "",
+                    id: v4(),
                     title: "",
                     description: ""
                 }
@@ -49,6 +52,26 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, editing
     }
 
     function onDoneClick() {
+        setShowListOptions(false);
+    }
+
+    function onRowClick(row: WhatsAppInteractiveListMessageSectionRow) {
+        if (editing || !setMessages || !setUserResponse) return;
+
+        setMessages(messages => {
+            return [...messages, {
+                isBot: false,
+                messageKey: "text",
+                safeType: WhatsAppMessageSafeType.WhatsAppTextMessage,
+                type: "text",
+                text: {
+                    "preview_url": true,
+                    "body": `${row.title}\n${row.description}`
+                }
+            }];
+        });
+
+        setUserResponse(row.id);
         setShowListOptions(false);
     }
 
@@ -68,10 +91,9 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, editing
                         <div key={i} className="w-full pt-3">
                             <div className="p-2 border-b-[1px] border-gray-500 border-solid">
                                 {!editing ? (
-                                    <p className="text-gray-500 text-sm leading-4">{section.title || 'Section title'}</p>
+                                    <p className="text-gray-400 text-sm leading-4">{section.title || 'Section title'}</p>
                                 ) : (
                                     <EditWhatsAppMessageField
-                                        mode="light"
                                         value={editing.get(['interactive', 'action', 'sections', i.toString(), 'title'])}
                                         onChange={e => editing.set(['interactive', 'action', 'sections', i.toString(), 'title'], e.target.value)}
                                         placeholder="Section title"
@@ -79,12 +101,11 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, editing
                                 )}
                             </div>
                             {section.rows.map((row, j) => (
-                                <div key={`${i}${j}`} className="px-2 py-4 border-b-[1px] border-gray-500 border-solid cursor-pointer">
+                                <div key={`${i}${j}`} className="px-2 py-4 border-b-[1px] border-gray-500 border-solid cursor-pointer" onClick={() => onRowClick(row)}>
                                     {!editing ? (
-                                        <p className="text-black leading-5">{row.title || 'Row title'}</p>
+                                        <p className="text-white leading-5">{row.title || 'Row title'}</p>
                                     ) : (
                                         <EditWhatsAppMessageField
-                                            mode="light"
                                             value={editing.get(['interactive', 'action', 'sections', i.toString(), 'rows', j.toString(), 'title'])}
                                             onChange={e => editing.set(['interactive', 'action', 'sections', i.toString(), 'rows', j.toString(), 'title'], e.target.value)}
                                             placeholder="Row title"
@@ -95,7 +116,6 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, editing
                                     ) : (
                                         <div>
                                             <EditWhatsAppMessageField
-                                                mode="light"
                                                 value={editing.get(['interactive', 'action', 'sections', i.toString(), 'rows', j.toString(), 'description'])}
                                                 onChange={e => editing.set(['interactive', 'action', 'sections', i.toString(), 'rows', j.toString(), 'description'], e.target.value)}
                                                 placeholder="Row description"
