@@ -1,6 +1,7 @@
 // https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
 
 import { WhatsAppMessageSafeType, WhatsAppMessageType } from "@/types/whatsapp";
+import { v4 } from "uuid";
 
 const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     // Text
@@ -64,7 +65,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
         "safeType": WhatsAppMessageSafeType.WhatsAppVideoMessage,
         "type": "video",
         "video": {
-            "id": "", /* Only if using uploaded media */
+            // "id": "", /* Only if using uploaded media */
             "link": "", /* Only if linking to your media */
             "caption": ""
         }
@@ -93,7 +94,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
                     {
                         "type": "reply",
                         "reply": {
-                            "id": "",
+                            "id": v4(),
                             "title": ""
                         }
                     }
@@ -164,7 +165,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
                         "title": "",
                         "rows": [
                             {
-                                "id": "",
+                                "id": v4(),
                                 "title": "",
                                 "description": ""
                             }
@@ -201,7 +202,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
                         "title": "",
                         "rows": [
                             {
-                                "id": "",
+                                "id": v4(),
                                 "title": "",
                                 "description": ""
                             }
