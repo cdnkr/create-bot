@@ -45,13 +45,13 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
    - Could write as JSON file on cloudinary - `userId/flowId`
 3. Import flow server side and use with assigned verified WhatsApp number using a webhook
    - ~~Implement code~~
-      - `GET /api/whatsapp/webhook`
+      - `GET /api/whatsapp/{displayNumber}/webhook`
          - Verifies webhook
-      - `POST /api/whatsapp/webhook`
+      - `POST /api/whatsapp/{displayNumber}/webhook`
          - Handles user responses and follow-up messages
    - Add error handling
    - Test
-      - ~~Add `POST /api/whatsapp/webhook/dev` endpoint for testing flows in development~~
+      - ~~Add `POST /api/whatsapp/{displayNumber}/webhook/dev` endpoint for testing flows in development~~
 4. User sign in - social sign in - start with Google
 
 ### both
