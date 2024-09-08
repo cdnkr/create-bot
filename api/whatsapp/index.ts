@@ -34,3 +34,21 @@ export async function sendWhatsAppMessage(
         return false;
     }
 }
+
+export async function retrieveWhatsAppMediaData(mediaId: string): Promise<Buffer | false> {
+    try {
+        const mediaDetailsResponse = await axios.get(`${whatsappApiUrl}${mediaId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const imageDataResponse = await axios.get(mediaDetailsResponse.data.url, {
+            responseType: "arraybuffer",
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return imageDataResponse.data;
+    } catch (err: any) {
+        console.error("Error in retrieveWhatsAppMediaData:", err.message);
+        return false;
+    }
+}
