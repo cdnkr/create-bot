@@ -1,4 +1,4 @@
-# WhatsApp Chatbot Template
+# Create Bot
 
 This project provides a template to create a WhatsApp chatbot. It allows users to add and demo bot messages, design message flows, and deploy the Chatbot by adding their WhatsApp Business API credentials.
 
