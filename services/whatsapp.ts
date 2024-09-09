@@ -1,13 +1,13 @@
 import { WhatsAppMessageType } from "@/types/whatsapp";
 import axios from "axios";
 
-const token = process.env.WHATSAPP_TOKEN as string;
 const whatsappApiUrl = process.env.WA_API_URL as string;
 
 export async function sendWhatsAppMessage(
     to: string, // wa user phone number
     message: WhatsAppMessageType,
     phoneNumberId: string,
+    token: string,
     isTestMode?: boolean
 ): Promise<WhatsAppMessageType | boolean> {
     const messagePayload: WhatsAppMessageType = {
@@ -30,12 +30,12 @@ export async function sendWhatsAppMessage(
 
         return true;
     } catch (err: any) {
-        console.error("Error in sendWhatsAppMessage: ", err.message);
+        console.error("Error in sendWhatsAppMessage: ", JSON.stringify({ url: `${whatsappApiUrl}${phoneNumberId}/messages?access_token=${token}`, messagePayload}));
         return false;
     }
 }
 
-export async function retrieveWhatsAppMediaData(mediaId: string): Promise<Buffer | false> {
+export async function retrieveWhatsAppMediaData(mediaId: string, token: string): Promise<Buffer | false> {
     try {
         const mediaDetailsResponse = await axios.get(`${whatsappApiUrl}${mediaId}`, {
             headers: { Authorization: `Bearer ${token}` },
