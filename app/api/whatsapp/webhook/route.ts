@@ -1,17 +1,14 @@
-import { sendWhatsAppMessage } from '@/api/whatsapp';
-import { extractUserResponse, getAssignedFlow, getNextMessage } from '@/utils/whatsapp';
+import { sendWhatsAppMessage } from '@/services/whatsapp';
+import supabase from '@/services/supabase';
+import { extractUserResponse, getNextMessage } from '@/utils/whatsapp';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
     return handleWebhookPost(request);
 }
 
-export async function GET(request: NextRequest, { params }: { params: { displayNumber: string } }) {
-    const { displayNumber } = params;
-
-    // TODO: add handling of number validation
-
-    return handleWebhookVerification(request, displayNumber);
+export async function GET(request: NextRequest) {
+    return handleWebhookVerification(request);
 }
 
 async function handleWebhookPost(request: NextRequest): Promise<NextResponse> {
@@ -32,13 +29,28 @@ async function handleWebhookPost(request: NextRequest): Promise<NextResponse> {
             return NextResponse.json({ error: "Phone number metadata missing" }, { status: 400 });
         }
 
-        const assignedFlow = await getAssignedFlow(displayNumber);
+        const { data, error } = await supabase
+            .from('flows')
+            .select('*')
+            .eq('wa_number', displayNumber);
+
+        const assignedFlow = Array.isArray(data) ? data[data.length - 1] : null;
+
+        if (error) {
+            console.error('Error retrieving flow:', error);
+            return NextResponse.json({ error: 'Failed to retrieve the flow' }, { status: 500 });
+        }
 
         const to = body.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.from;
 
         if (userResponse && to) {
-            const replyMessage = getNextMessage(userResponse, assignedFlow);
-            await sendWhatsAppMessage(to, replyMessage, phoneNumberId);
+            let replyMessage = getNextMessage(userResponse, assignedFlow.templates);
+
+            delete replyMessage.isBot;
+            delete replyMessage.messageKey;
+            delete replyMessage.safeType;
+
+            await sendWhatsAppMessage(to, replyMessage, phoneNumberId, assignedFlow.wa_access_token);
 
             return NextResponse.json({ success: true }, { status: 200 });
         }
@@ -49,18 +61,14 @@ async function handleWebhookPost(request: NextRequest): Promise<NextResponse> {
         return NextResponse.json({ error: "Webhook handling error" }, { status: 400 });
     }
 }
-
-async function handleWebhookVerification(request: NextRequest, displayNumber: string): Promise<NextResponse> {
+async function handleWebhookVerification(request: NextRequest): Promise<NextResponse | Response> {
     try {
-        const verifyToken = await getAssignedFlow(displayNumber);
-
         const mode = request.nextUrl.searchParams.get("hub.mode");
-        const token = request.nextUrl.searchParams.get("hub.verify_token");
         const challenge = request.nextUrl.searchParams.get("hub.challenge");
 
-        if (mode === "subscribe" && token === verifyToken) {
+        if (mode === "subscribe") {
             console.log("WEBHOOK_VERIFIED");
-            return NextResponse.json({ challenge }, { status: 200 });
+            return new Response(challenge, { status: 200 });
         }
 
         return NextResponse.json({ error: "Invalid token or mode" }, { status: 403 });
@@ -69,3 +77,4 @@ async function handleWebhookVerification(request: NextRequest, displayNumber: st
         return NextResponse.json({ error: "Webhook verification error" }, { status: 400 });
     }
 }
+
