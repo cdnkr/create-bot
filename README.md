@@ -6,7 +6,7 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 
 - **Message Demo**: Easily add and preview bot messages.
 - **Flow Design**: Create and manage your chatbot's message flow.
-- **Deployment**: Integrate your WhatsApp Business phone number verify token and whatsapp token, and deploy your chatbot.
+- **Deployment**: Integrate your WhatsApp Business phone number, and deploy your chatbot.
 
 ## TODO
 
@@ -62,7 +62,6 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 4. Assign verified phone number to flow - show QR to test https://wa.me/{number}?text=hi 
    - Flow config
       - Input phone number
-      - Input `VERIFY_TOKEN` (used for webhook verificatino)
       - Input `WHATSAPP_TOKEN` (used as auth for sending messages)
 
 ## Prerequisites
