@@ -145,7 +145,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
         "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
         "type": "interactive",
         "interactive": {
-            "type": "button",
+            "type": "list",
             "header": {
                 "type": "image",
                 "image": {
@@ -184,7 +184,7 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
         "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
         "type": "interactive",
         "interactive": {
-            "type": "button",
+            "type": "list",
             "header": {
                 "type": "text",
                 "text": ""
