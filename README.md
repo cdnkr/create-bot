@@ -2,6 +2,14 @@
 
 This project provides a template to create a WhatsApp chatbot. It allows users to add and demo bot messages, design message flows, and deploy the Chatbot by adding their WhatsApp Business API credentials.
 
+## Create
+
+![create bot](<https://create-bot-sage.vercel.app/assets/screenshots/Screenshot%202024-09-10%20001009.png>)
+
+## Deploy
+
+![deploy bot](<https://create-bot-sage.vercel.app/assets/screenshots/IMG_9231.jpg>)
+
 ## Features
 
 - **Message Demo**: Easily add and preview bot messages.
