@@ -41,28 +41,27 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 1. Add image upload support on back-end to cloud service like cloudinary `{userId}/{flowId}/images/{imageId}.{imageFileExtension}`
 2. ~~Save flow JSON~~ - ~~write to file~~/DB
    - ~~fs `/flows/{flowId}}`~~
-   - DB
-   - Could write as JSON file on cloudinary - `userId/flowId`
-3. Import flow server side and use with assigned verified WhatsApp number using a webhook
+   - ~~DB~~
+3. ~~Import flow server side and use with assigned verified WhatsApp number using a webhook~~
    - ~~Implement code~~
-      - `GET /api/whatsapp/{displayNumber}/webhook`
-         - Verifies webhook
-      - `POST /api/whatsapp/{displayNumber}/webhook`
-         - Handles user responses and follow-up messages
+      - ~~`GET /api/whatsapp/webhook`~~
+         - ~~Verifies webhook~~
+      - ~~`POST /api/whatsapp/webhook`~~
+         - ~~Handles user responses and follow-up messages~~
    - Add error handling
-   - Test
-      - ~~Add `POST /api/whatsapp/{displayNumber}/webhook/dev` endpoint for testing flows in development~~
 4. User sign in - social sign in - start with Google
 
 ### both
 
 1. Add message actions - e.g. send email, slack w/ user response
 2. Manage user bots
-3. Show how to documentation/links/video on how to set up WhatsApp business number on Meta Developers console
-4. Assign verified phone number to flow - show QR to test https://wa.me/{number}?text=hi 
+3. Show how to documentation/links/video on how to set up:
+   - WhatsApp business number on Meta Developers console
+   - access token/permanent access token
+4. ~~Assign verified phone number to flow~~ - show QR to test https://wa.me/{number}?text=hi 
    - Flow config
-      - Input phone number
-      - Input `WHATSAPP_TOKEN` (used as auth for sending messages)
+      - ~~Input phone number~~
+      - ~~Input `WHATSAPP_TOKEN` (used as auth for sending messages)~~
 
 ## Prerequisites
 
