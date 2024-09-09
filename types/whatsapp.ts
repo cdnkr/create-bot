@@ -128,7 +128,7 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
     type: "interactive";
     safeType: WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
     interactive: {
-        type: "button";
+        type: "list";
         header?: {
             type: "text" | "image";
             text?: string;
