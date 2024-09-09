@@ -1,9 +1,13 @@
 import SelectMessageType from "@/components/build-bot/whatsapp/select-message-type";
+import Input from "@/components/general/input";
 import Modal from "@/components/general/modal";
 import messageTypeInitializers from "@/data/whatsapp/message-type-initializers";
 import { useNestedState } from "@/hooks/state/useNestedState";
 import { useWhatsAppChatDemo } from "@/hooks/whatsapp/useWhatsAppChatDemo";
 import { WhatsAppMessageType } from "@/types/whatsapp";
+import { isEmptyObject } from "@/utils/object";
+import { isValidUUID } from "@/utils/uuid";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiCheckCircle, BiHappy, BiPlus } from "react-icons/bi";
@@ -13,9 +17,6 @@ import { MdSearch, MdSend } from "react-icons/md";
 import Message from "./message";
 import RoundedBtn from "./rounded-button";
 import WhatsAppUtilityButton from "./utility-button";
-import { isValidUUID } from "@/utils/uuid";
-import { v4 } from "uuid";
-import axios from "axios";
 
 interface Props {
   initialMessages: WhatsAppMessageType[];
@@ -44,9 +45,10 @@ function WhatsAppChat({ initialMessages }: Props) {
 
   const [showSelectMessageType, setShowSelectMessageType] = useState(false);
   const [userResponse, setUserResponse] = useState('');
-  const [builtFlow, setBuiltFlow] = useState<any>({
-    id: v4()
-  });
+  const [builtFlow, setBuiltFlow] = useState<any>({});
+  const [waAccessToken, setWaAccessToken] = useState(process.env.NEXT_PUBLIC_WA_AT || '');
+  const [waNumber, setWaNumber] = useState(process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
+  const [flowId, setFlowId] = useState<string | null>(null);
 
   function onAddClick() {
     setShowSelectMessageType(true);
@@ -92,18 +94,44 @@ function WhatsAppChat({ initialMessages }: Props) {
     return 'Add follow up message';
   }
 
-  function saveFlow(flow: any) {
+  async function saveFlow(flow: any) {
     // TODO: add success failure handling
-    axios.post('/api/flow/save', flow);
+    if (flowId) {
+      await axios.put('/api/flow/save', { id: flowId, templates: flow, waAccessToken, waNumber });
+
+      return;
+    }
+    const response = await axios.post('/api/flow/save', { templates: flow, waAccessToken, waNumber });
+
+    const newFlowId = response.data.id;
+
+    setFlowId(newFlowId);
   }
 
   useEffect(() => {
+    if (isEmptyObject(builtFlow)) return;
     console.log(builtFlow);
     saveFlow(builtFlow);
   }, [builtFlow]);
 
   return (
     <>
+      <div className="w-full flex flex-col gap-3 mb-5">
+        <h2 className="bold text-2xl font-semibold">Config</h2>
+        <div className="w-full flex flex-col md:flex-row gap-3">
+          <Input
+            value={waNumber}
+            onChange={e => setWaNumber(e.target.value)}
+            placeholder="wa number"
+          />
+          <Input
+            value={waAccessToken}
+            onChange={e => setWaAccessToken(e.target.value)}
+            placeholder="wa access token"
+          />
+        </div>
+      </div>
+      <h2 className="bold text-2xl font-semibold mb-3">Create bot</h2>
       <div className="flex relative flex-col h-[80vh] no-scrollbar rounded-xl overflow-hidden">
         <div className="flex justify-between bg-[#202d33] h-[60px] p-3">
           <div className="flex items-center">
