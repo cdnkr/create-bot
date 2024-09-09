@@ -147,6 +147,7 @@ const templates: any[] = [
         }
     },
     // Interactive List Messages
+    // https://developers.facebook.com/docs/whatsapp/cloud-api/messages/interactive-list-messages
     {
         "messaging_product": "whatsapp",
         "recipient_type": "individual",
