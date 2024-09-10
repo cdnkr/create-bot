@@ -1,4 +1,4 @@
-import DocumentUpload from "@/components/general/document-upload";
+import FileUpload from "@/components/general/file-upload";
 import LoadingSpinner from "@/components/general/loading-spinner";
 import { WhatsAppDocumentMessage } from "@/types/whatsapp";
 import { getFileNameFromUrl } from "@/utils/file";
@@ -21,10 +21,10 @@ function WADocumentMessage({ message, editing = null }: Props) {
             className="max-w-[410px] p-2"
         >
             {editing ? (
-                <DocumentUpload
-                    setDocumentUrl={documentUrl => editing.set(['document'], {
-                        link: documentUrl,
-                        filename: getFileNameFromUrl(documentUrl),
+                <FileUpload
+                    setFileUrl={fileUrl => editing.set(['document'], {
+                        link: fileUrl,
+                        filename: getFileNameFromUrl(fileUrl),
                         caption: editing.get(['document', 'caption'])
                     })}
                     setIsUploading={setIsUploading}
@@ -34,7 +34,7 @@ function WADocumentMessage({ message, editing = null }: Props) {
                     ) : (
                         <LoadingSpinner />
                     )}
-                </DocumentUpload>
+                </FileUpload>
             ) : (
                 <DocumentDisplay
                     documentUrl={message.document.filename || "Your-Document"}
