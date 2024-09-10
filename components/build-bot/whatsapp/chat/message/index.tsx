@@ -2,6 +2,7 @@ import { WhatsAppMessageSafeType, WhatsAppMessageType } from "@/types/whatsapp";
 import WAImageMessage from "./image";
 import WAInteractiveListMessage from "./interactive/list";
 import WATextMessage from "./text";
+import WADocumentMessage from "./document";
 
 interface Props {
   message: WhatsAppMessageType;
@@ -27,6 +28,14 @@ function Message({ message, setUserResponse, setMessages, editing = null }: Prop
       {/* Text (link/normal) message */}
       {(message.type === 'text') && (
         <WATextMessage
+          message={message}
+          editing={editing}
+        />
+      )}
+
+      {/* Text (link/normal) message */}
+      {(message.type === 'document') && (
+        <WADocumentMessage
           message={message}
           editing={editing}
         />
