@@ -155,13 +155,15 @@ function WAInteractiveListOptions({ sections, title, setShowListOptions, setUser
                             <p className="text-xs">Maximum number of sections added for this section. WhatsApp only allows up to 10 sections.</p>
                         </div>
                     )}
-                    <WhatsAppUtilityButton
-                        className='mt-8'
-                        Icon={<BiCheckCircle />}
-                        label="Done editing list options"
-                        type="greenDashed"
-                        onClick={onDoneClick}
-                    />
+                    {editing && (
+                        <WhatsAppUtilityButton
+                            className='mt-8'
+                            Icon={<BiCheckCircle />}
+                            label="Done editing list options"
+                            type="greenDashed"
+                            onClick={onDoneClick}
+                        />
+                    )}
                 </div>
                 {/* <div className="w-full p-5 absolute bottom-0 left-0 right-0 flex justify-center">
                     <p className="text-gray-500 text-xs">Tap an item to select it</p>
