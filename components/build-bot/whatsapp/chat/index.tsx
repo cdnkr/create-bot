@@ -17,6 +17,8 @@ import { MdSearch, MdSend } from "react-icons/md";
 import Message from "./message";
 import RoundedBtn from "./rounded-button";
 import WhatsAppUtilityButton from "./utility-button";
+import Button from "@/components/general/button";
+import { IoCheckmarkDone } from "react-icons/io5";
 
 interface Props {
   initialMessages: WhatsAppMessageType[];
@@ -107,11 +109,18 @@ function WhatsAppChat({ initialMessages }: Props) {
     setFlowId(newFlowId);
   }
 
-  useEffect(() => {
+  // TODO: re-enable later for drafts
+  // useEffect(() => {
+  //   if (isEmptyObject(builtFlow)) return;
+  //   console.log(builtFlow);
+  //   saveFlow(builtFlow);
+  // }, [builtFlow]);
+
+  function onDoneClick() {
     if (isEmptyObject(builtFlow)) return;
     console.log(builtFlow);
     saveFlow(builtFlow);
-  }, [builtFlow]);
+  };
 
   return (
     <>
@@ -220,6 +229,14 @@ function WhatsAppChat({ initialMessages }: Props) {
           />
         </div>
       </Modal>
+      <div className="w-full flex justify-center mt-5">
+        <Button
+          text="Done"
+          Icon={<IoCheckmarkDone />}
+          className="w-full md:w-80"
+          onClick={onDoneClick}
+        />
+      </div>
     </>
   );
 }
