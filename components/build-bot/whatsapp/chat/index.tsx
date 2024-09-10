@@ -85,7 +85,6 @@ function WhatsAppChat({ initialMessages }: Props) {
 
   function onSelectMessageTypeClick(key: string) {
     resetState(messageTypeInitializers[key]);
-    setShowSelectMessageType(false);
   }
 
   function getNewMessagePlaceholder() {
@@ -216,6 +215,8 @@ function WhatsAppChat({ initialMessages }: Props) {
           <h1 className="font-bold text-2xl">Select message type</h1>
           <SelectMessageType
             onSelectMessageTypeClick={onSelectMessageTypeClick}
+            newMessage={newMessage}
+            setShowSelectMessageType={setShowSelectMessageType}
           />
         </div>
       </Modal>
