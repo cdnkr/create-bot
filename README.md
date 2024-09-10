@@ -24,7 +24,7 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 2. Add display and editing support for the remaining WhatsApp message types (3/8)
    - ~~Text~~
    - ~~Image~~
-   - Document
+   - ~~Document~~
    - Location
    - Video
    - Interactive reply buttons
