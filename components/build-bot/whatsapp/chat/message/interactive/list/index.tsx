@@ -1,3 +1,5 @@
+import FileUpload from "@/components/general/file-upload";
+import LoadingSpinner from "@/components/general/loading-spinner";
 import { WhatsAppInteractiveListMessage, WhatsAppMessageType } from "@/types/whatsapp";
 import { getTime } from "@/utils/time";
 import { useState } from "react";
@@ -15,6 +17,7 @@ interface Props {
 
 function WAInteractiveListMessage({ message, setUserResponse, setMessages, editing = null }: Props) {
   const [showListOptions, setShowListOptions] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   return (
     <div className="w-full flex flex-col">
@@ -38,11 +41,28 @@ function WAInteractiveListMessage({ message, setUserResponse, setMessages, editi
             </>
           ) : (message.interactive.header?.type === 'image') && (
             <div className="relative w-full">
-              <img
-                src={message.interactive.header?.image?.link || './assets/whatsapp/images/demo.png'}
-                alt="img_message"
-                className="rounded-md w-full"
-              />
+              {editing ? (
+                    <FileUpload
+                        setFileUrl={fileUrl => editing.set(['interactive', 'header', 'image', 'link'], fileUrl)}
+                        setIsUploading={setIsUploading}
+                    >
+                        {!isUploading ? (
+                            <img
+                                src={editing.get(['interactive', 'header', 'image', 'link']) || './assets/whatsapp/images/demo.png'}
+                                alt="img_message"
+                                className="rounded-md max-w-[270px] w-full"
+                            />
+                        ) : (
+                            <LoadingSpinner />
+                        )}
+                    </FileUpload>
+                ) : (
+                    <img
+                        src={message.interactive.header?.image?.link || './assets/whatsapp/images/demo.png'}
+                        alt="img_message"
+                        className="rounded-md max-w-[270px] w-full"
+                    />
+                )}
             </div>
           )}
           {!editing ? (
