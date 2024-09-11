@@ -8,12 +8,12 @@ interface Props {
 function Logo(props: Props) {
     const {
         className = '',
-        textClassName = ''
+        textClassName = 'text-2xl text-black'
     } = props
 
     return (
         <div className={`flex items-center ${className}`}>
-            <h1 className={`uppercase font-extrabold text-lg ${textClassName}`}>Cr3ate<span className='uppercase font-light'>B0t</span></h1>
+            <h1 className={`font-extrabold ${textClassName}`}>cr3ate.<span className='font-light'>bot</span></h1>
         </div>
     )
 }
