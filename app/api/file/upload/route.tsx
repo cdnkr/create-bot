@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to upload file' }, { status: 500 });
     }
 
-    return NextResponse.json({ documentUrl: uploadedUrl }, { status: 200 });
+    return NextResponse.json({ fileUrl: uploadedUrl }, { status: 200 });
   } catch (err: any) {
     console.error('Error in file upload API: ', err.message);
     return NextResponse.json({ error: err.message }, { status: 500 });
