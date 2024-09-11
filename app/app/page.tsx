@@ -29,9 +29,9 @@ export default async function AppHomePage() {
   return (
     <div className="w-full flex flex-col gap-5">
       <div>
-        <h1 className="text-3xl font-bold">Hi, Chad.&nbsp;<span className="font-light">What would you like to build today?</span></h1>
+        <h1 className="text-3xl font-bold">Hi Chad,&nbsp;<span className="font-light">what would you like to build today?</span></h1>
       </div>
-      <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-4 justify-items-center justify-center gap-10 mt-5 mb-5`}>
+      <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-4 justify-items-center justify-center gap-5 mt-5 mb-5`}>
         {BOT_TYPES.map(botType => (
           <Card
             key={botType.type}
@@ -41,8 +41,8 @@ export default async function AppHomePage() {
           />
         ))}
       </div>
-      <h1 className="text-3xl font-bold"><span className="font-light">Pick up where you left off...</span></h1>
-      <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-3 justify-items-center justify-center gap-10 mt-5 mb-5`}>
+      <h1 className="text-3xl font-bold"><span className="font-light">Pick up where you left off,</span></h1>
+      <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-3 justify-items-center justify-center gap-5 mt-5 mb-5`}>
         {bots.map((botDetails: any) => (
           <Card
             key={botDetails.id}
