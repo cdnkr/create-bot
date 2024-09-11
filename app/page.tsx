@@ -1,10 +1,30 @@
-import BuildWhatsAppBot from "@/components/build-bot/whatsapp";
+import Button from "@/components/general/button";
+import Input from "@/components/general/input";
+import Logo from "@/components/layout/logo";
+import Link from "next/link";
+import { AiOutlineLogin } from "react-icons/ai";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-between">
-      <div className="absolute z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-orange-200 after:via-orange-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-orange-700 before:dark:opacity-10 after:dark:from-orange-900 after:dark:via-[#ff4101] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]" />
-      <BuildWhatsAppBot />
-    </main>
+    <div className="max-w-full m-0 bg-transparent min-h-screen flex justify-center flex-1">
+      <div className="flex-1 text-center flex justify-center items-center">
+        <div className="m-12 xl:m-16 w-full flex flex-col items-center justify-center gap-5">
+          <Logo className="text-5xl" textClassName="text-4xl" />
+          <img src="/assets/bot.png" className="w-80 h-auto" />
+          <div className="flex flex-col gap-5 max-w-xl w-full">
+            <Input placeholder="Email" className="bg-white" />
+            <Link
+              href={`/app`}
+            >
+            <Button
+              Icon={<AiOutlineLogin />}
+              text="Start"
+              className="w-full"
+            />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
