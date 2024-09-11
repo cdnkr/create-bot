@@ -44,7 +44,7 @@ function SelectMessageType({ onSelectMessageTypeClick, setShowSelectMessageType,
                     {Object.keys(messageTypeInitializers).map((key) => (
                         <div
                             key={key}
-                            className={`w-full ${messageTypeInitializers[key].messageKey === newMessage?.messageKey ? 'text-orange-500' : ''} cursor-pointer gap-2 p-2 flex items-center rounded-lg text-xl transition-all hover:text-orange-500`}
+                            className={`w-full ${messageTypeInitializers[key].messageKey === newMessage?.messageKey ? 'text-blue-500' : ''} cursor-pointer gap-2 p-2 flex items-center rounded-lg text-xl transition-all hover:text-blue-500`}
                             onClick={() => onSelectMessageTypeClick(key)}
                         >
                             {ICONS[key]}
@@ -72,7 +72,7 @@ function SelectMessageType({ onSelectMessageTypeClick, setShowSelectMessageType,
                     Icon={<IoMdAddCircleOutline />}
                     text='Add message'
                     onClick={() => setShowSelectMessageType(false)}
-                    className='w-full md:w-2/3 bg-orange-500'
+                    className='w-full md:w-2/3 bg-blue-500'
                 />
             </div>
         </div>
