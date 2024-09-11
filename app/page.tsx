@@ -1,37 +1,44 @@
 import Button from "@/components/general/button";
-import Input from "@/components/general/input";
-import Logo from "@/components/layout/logo";
 import Image from "next/image";
 import Link from "next/link";
-import { AiOutlineLogin } from "react-icons/ai";
+import { BsArrowRight } from "react-icons/bs";
 
 export default function Home() {
   return (
-    <div className="max-w-full m-0 bg-transparent min-h-screen flex justify-center flex-1">
-      <div className="flex-1 text-center flex justify-center items-center">
-        <div className="m-12 xl:m-16 w-full flex flex-col items-center justify-center gap-5">
-          <Logo className="text-5xl" textClassName="text-4xl" />
-          <Image
-            src="/assets/bot.png"
-            className="w-80 h-auto"
-            alt="bot graphic"
-            height={320}
-            width={320}
-          />
-          <div className="flex flex-col gap-5 max-w-xl w-full">
-            <Input placeholder="Email" className="bg-white" />
-            <Link
-              href={`/app`}
-            >
+    <main
+      className="grid lg:grid-cols-2 place-items-center pb-8 md:pb-24">
+      <div className="py-6 md:order-1 hidden md:block">
+        <Image
+          className="rounded-xl"
+          src={`/assets/bot.png`}
+          alt="Bot on the moon"
+          loading="eager"
+          height={600}
+          width={600}
+        />
+      </div>
+      <div>
+        <h1
+          className="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
+          Build a bot, quickly. Today.
+        </h1>
+        <p className="text-lg mt-4 text-slate-600 max-w-xl">
+          Build WhatsApp or web flow based and AI chatbots. Deploy or add to your site instantly.
+        </p>
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <Link
+            href="/app"
+          >
             <Button
-              Icon={<AiOutlineLogin />}
-              text="Start"
-              className="w-full"
+              text="Start now"
+              color="blue"
+              className="min-w-64"
+              Icon={<BsArrowRight />}
+              iconEnd
             />
-            </Link>
-          </div>
+          </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
