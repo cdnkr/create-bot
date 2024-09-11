@@ -29,7 +29,7 @@ function WAImageMessage({ message, editing = null }: Props) {
                     >
                         {!isUploading ? (
                             <img
-                                src={editing.get(['image', 'link']) || './assets/whatsapp/images/demo.png'}
+                                src={editing.get(['image', 'link']) || '/assets/whatsapp/images/demo.png'}
                                 alt="img_message"
                                 className="rounded-md max-w-[270px] w-100"
                             />
@@ -39,7 +39,7 @@ function WAImageMessage({ message, editing = null }: Props) {
                     </FileUpload>
                 ) : (
                     <img
-                        src={message.image.link || './assets/whatsapp/images/demo.png'}
+                        src={message.image.link || '/assets/whatsapp/images/demo.png'}
                         alt="img_message"
                         className="rounded-md max-w-[270px] w-100"
                     />

@@ -48,7 +48,7 @@ function WAInteractiveListMessage({ message, setUserResponse, setMessages, editi
                     >
                         {!isUploading ? (
                             <img
-                                src={editing.get(['interactive', 'header', 'image', 'link']) || './assets/whatsapp/images/demo.png'}
+                                src={editing.get(['interactive', 'header', 'image', 'link']) || '/assets/whatsapp/images/demo.png'}
                                 alt="img_message"
                                 className="rounded-md max-w-[270px] w-full"
                             />
@@ -58,7 +58,7 @@ function WAInteractiveListMessage({ message, setUserResponse, setMessages, editi
                     </FileUpload>
                 ) : (
                     <img
-                        src={message.interactive.header?.image?.link || './assets/whatsapp/images/demo.png'}
+                        src={message.interactive.header?.image?.link || '/assets/whatsapp/images/demo.png'}
                         alt="img_message"
                         className="rounded-md max-w-[270px] w-full"
                     />

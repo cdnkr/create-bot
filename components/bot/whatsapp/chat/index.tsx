@@ -1,4 +1,4 @@
-import SelectMessageType from "@/components/build-bot/whatsapp/select-message-type";
+import SelectMessageType from "@/components/bot/whatsapp/select-message-type";
 import Input from "@/components/general/input";
 import Modal from "@/components/general/modal";
 import messageTypeInitializers from "@/data/whatsapp/message-type-initializers";
@@ -21,10 +21,17 @@ import Button from "@/components/general/button";
 import { IoCheckmarkDone } from "react-icons/io5";
 
 interface Props {
-  initialMessages: WhatsAppMessageType[];
+  botDetails: any;
 }
 
-function WhatsAppChat({ initialMessages }: Props) {
+function WhatsAppChat({ botDetails }: Props) {
+  const [initialFlow] = useState(botDetails?.templates);
+  const [initialMessages] = useState(botDetails?.templates ? [initialFlow['start']] : []);
+
+  // TODO: add aut add of follow up message if exists on new user message
+
+  console.log({botDetails})
+
   const {
     messages,
     setMessages,
@@ -47,10 +54,11 @@ function WhatsAppChat({ initialMessages }: Props) {
 
   const [showSelectMessageType, setShowSelectMessageType] = useState(false);
   const [userResponse, setUserResponse] = useState('');
-  const [builtFlow, setBuiltFlow] = useState<any>({});
-  const [waAccessToken, setWaAccessToken] = useState(process.env.NEXT_PUBLIC_WA_AT || '');
-  const [waNumber, setWaNumber] = useState(process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
-  const [flowId, setFlowId] = useState<string | null>(null);
+  const [builtFlow, setBuiltFlow] = useState<any>(initialFlow || {});
+  const [waAccessToken, setWaAccessToken] = useState(botDetails?.wa_token || process.env.NEXT_PUBLIC_WA_AT || '');
+  const [waNumber, setWaNumber] = useState(botDetails?.wa_number || process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
+  const [flowId, setFlowId] = useState<string | null>(botDetails?.id || null);
+  const [flowName, setFlowName] = useState(botDetails?.name || '');
 
   function onAddClick() {
     setShowSelectMessageType(true);
@@ -98,11 +106,11 @@ function WhatsAppChat({ initialMessages }: Props) {
   async function saveFlow(flow: any) {
     // TODO: add success failure handling
     if (flowId) {
-      await axios.put('/api/flow/save', { id: flowId, templates: flow, waAccessToken, waNumber });
+      await axios.put('/api/flow/save', { id: flowId, templates: flow, waAccessToken, waNumber, name: flowName });
 
       return;
     }
-    const response = await axios.post('/api/flow/save', { templates: flow, waAccessToken, waNumber });
+    const response = await axios.post('/api/flow/save', { templates: flow, waAccessToken, waNumber, name: flowName });
 
     const newFlowId = response.data.id;
 
@@ -127,6 +135,11 @@ function WhatsAppChat({ initialMessages }: Props) {
       <div className="w-full flex flex-col gap-3 mb-5">
         <h2 className="bold text-2xl font-semibold">Config</h2>
         <div className="w-full flex flex-col md:flex-row gap-3">
+          <Input
+            value={flowName}
+            onChange={e => setFlowName(e.target.value)}
+            placeholder="Bot name"
+          />
           <Input
             value={waNumber}
             onChange={e => setWaNumber(e.target.value)}
