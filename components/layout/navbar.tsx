@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Logo from './logo';
 
 function Navbar() {
     const router = useRouter();
@@ -10,9 +11,7 @@ function Navbar() {
         <nav className='w-full flex items-center justify-center'>
             <div className='mx-auto py-5 px-5 w-full flex justify-center max-w-screen-lg'>
                 <Link href='/' className='flex items-center'>
-                    <div className='w-12 flex items-center mr-5'>
-                        <h1 className='uppercase font-extrabold text-lg'>Cr3ate<span className='uppercase font-light'>B0t</span></h1>
-                    </div>
+                    <Logo className='mr-5' />
                 </Link>
                 <div className='flex items-center gap-3 mr-0 ml-auto'>
                     <Link href='/'>
