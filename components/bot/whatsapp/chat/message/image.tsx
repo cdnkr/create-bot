@@ -6,6 +6,7 @@ import FileUpload from "@/components/general/file-upload";
 import LoadingSpinner from "@/components/general/loading-spinner";
 import { useState } from "react";
 import { getFileNameFromUrl } from "@/utils/file";
+import Image from "next/image";
 
 interface Props {
     message: WhatsAppImageMessage;
@@ -28,20 +29,24 @@ function WAImageMessage({ message, editing = null }: Props) {
                         setIsUploading={setIsUploading}
                     >
                         {!isUploading ? (
-                            <img
+                            <Image
                                 src={editing.get(['image', 'link']) || '/assets/whatsapp/images/demo.png'}
                                 alt="img_message"
                                 className="rounded-md max-w-[270px] w-100"
+                                height={270}
+                                width={270}
                             />
                         ) : (
                             <LoadingSpinner />
                         )}
                     </FileUpload>
                 ) : (
-                    <img
+                    <Image
                         src={message.image.link || '/assets/whatsapp/images/demo.png'}
                         alt="img_message"
                         className="rounded-md max-w-[270px] w-100"
+                        height={270}
+                        width={270}
                     />
                 )}
                 {!editing ? formatMessageText(message.image.caption || 'Caption') : (

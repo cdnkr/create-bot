@@ -7,6 +7,7 @@ import { IoListOutline } from "react-icons/io5";
 import EditWhatsAppMessageField from "../../../edit-field";
 import { formatMessageText } from "../../utils";
 import WAInteractiveListOptions from "./options";
+import Image from "next/image";
 
 interface Props {
   message: WhatsAppInteractiveListMessage;
@@ -47,20 +48,24 @@ function WAInteractiveListMessage({ message, setUserResponse, setMessages, editi
                         setIsUploading={setIsUploading}
                     >
                         {!isUploading ? (
-                            <img
+                            <Image
                                 src={editing.get(['interactive', 'header', 'image', 'link']) || '/assets/whatsapp/images/demo.png'}
                                 alt="img_message"
                                 className="rounded-md max-w-[270px] w-full"
+                                width={270}
+                                height={270}
                             />
                         ) : (
                             <LoadingSpinner />
                         )}
                     </FileUpload>
                 ) : (
-                    <img
+                    <Image
                         src={message.interactive.header?.image?.link || '/assets/whatsapp/images/demo.png'}
                         alt="img_message"
                         className="rounded-md max-w-[270px] w-full"
+                        height={270}
+                        width={270}
                     />
                 )}
             </div>

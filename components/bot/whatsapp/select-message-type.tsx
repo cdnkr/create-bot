@@ -42,7 +42,11 @@ function SelectMessageType({ onSelectMessageTypeClick, setShowSelectMessageType,
                 {/* <Label label="Select message type" /> */}
                 <div className="flex flex-wrap w-full gap-y-2 gap-x-5">
                     {Object.keys(messageTypeInitializers).map((key) => (
-                        <div key={key} className={`w-full ${messageTypeInitializers[key].messageKey === newMessage?.messageKey ? 'text-orange-500' : ''} cursor-pointer gap-2 p-2 flex items-center rounded-lg text-xl transition-all hover:text-orange-500`} onClick={() => onSelectMessageTypeClick(key)}>
+                        <div
+                            key={key}
+                            className={`w-full ${messageTypeInitializers[key].messageKey === newMessage?.messageKey ? 'text-orange-500' : ''} cursor-pointer gap-2 p-2 flex items-center rounded-lg text-xl transition-all hover:text-orange-500`}
+                            onClick={() => onSelectMessageTypeClick(key)}
+                        >
                             {ICONS[key]}
                             <span className={`text-sm`}>
                                 {camelCaseToText(key)}
@@ -61,7 +65,7 @@ function SelectMessageType({ onSelectMessageTypeClick, setShowSelectMessageType,
                 <div className='text-xl'>
                     <BiInfoCircle />
                 </div>
-                <p>Once added you'll be able to edit the messages content.</p>
+                <p>Once added you&apos;ll be able to edit the messages content.</p>
             </div>
             <div className='w-full flex justify-center mt-5 pt-5 border-solid border-t-2 border-gray-200'>
                 <Button
