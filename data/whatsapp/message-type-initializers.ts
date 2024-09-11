@@ -139,44 +139,44 @@ const messageTypeInitializers: { [key: string]: WhatsAppMessageType } = {
     // Interactive List
     // https://developers.facebook.com/docs/whatsapp/cloud-api/messages/interactive-reply-buttons-messages
     // With Image Header
-    interactiveListWithImageHeader: {
-        "isBot": true,
-        "messageKey": "interactiveListWithImageHeader",
-        "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
-        "type": "interactive",
-        "interactive": {
-            "type": "list",
-            "header": {
-                "type": "image",
-                "image": {
-                    "link": ""
-                }
-            },
-            "body": {
-                "text": ""
-            },
-            "footer": {
-                "text": ""
-            },
-            "action": {
-                "button": "",
-                "sections": [
-                    {
-                        "title": "",
-                        "rows": [
-                            {
-                                "id": v4(),
-                                "title": "",
-                                "description": ""
-                            }
-                            /* Additional rows would go here*/
-                        ]
-                    }
-                    /* Additional sections would go here */
-                ],
-            }
-        }
-    },
+    // interactiveListWithImageHeader: {
+    //     "isBot": true,
+    //     "messageKey": "interactiveListWithImageHeader",
+    //     "safeType": WhatsAppMessageSafeType.WhatsAppInteractiveListMessage,
+    //     "type": "interactive",
+    //     "interactive": {
+    //         "type": "list",
+    //         "header": {
+    //             "type": "image",
+    //             "image": {
+    //                 "link": ""
+    //             }
+    //         },
+    //         "body": {
+    //             "text": ""
+    //         },
+    //         "footer": {
+    //             "text": ""
+    //         },
+    //         "action": {
+    //             "button": "",
+    //             "sections": [
+    //                 {
+    //                     "title": "",
+    //                     "rows": [
+    //                         {
+    //                             "id": v4(),
+    //                             "title": "",
+    //                             "description": ""
+    //                         }
+    //                         /* Additional rows would go here*/
+    //                     ]
+    //                 }
+    //                 /* Additional sections would go here */
+    //             ],
+    //         }
+    //     }
+    // },
     // With Text Header
     interactiveListWithTextHeader: {
         "isBot": true,
