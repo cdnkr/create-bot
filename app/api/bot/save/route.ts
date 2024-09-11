@@ -8,12 +8,12 @@ export async function POST(request: Request) {
         const body = await request.json();
         const userId = '5ab6b5e3-5cbe-48dd-8714-b97d5f090cc2';
 
-        const newFlowId = v4();
+        const newBotId = v4();
         
         const { error } = await supabase
-        .from('flows')
+        .from('bots')
         .insert({
-            id: newFlowId,
+            id: newBotId,
             name: body.name,
             user_id: userId, 
             templates: body.templates, 
@@ -23,10 +23,10 @@ export async function POST(request: Request) {
 
         if (error) return NextResponse.json({ error }, { status: 500 });
 
-        return NextResponse.json({ msg: `Flow saved`, id: newFlowId });
+        return NextResponse.json({ msg: `Bot created`, id: newBotId });
     } catch (error) {
-        console.error('Error saving data:', error);
-        return NextResponse.json({ error: 'Failed to save data' }, { status: 500 });
+        console.error('Error creating bot:', error);
+        return NextResponse.json({ error: 'Failed to create bot' }, { status: 500 });
     }
 }
 
@@ -36,7 +36,7 @@ export async function PUT(request: Request) {
         const body = await request.json();
         
         const { error } = await supabase
-        .from('flows')
+        .from('bots')
         .update({
             name: body.name,
             templates: body.templates, 
@@ -47,7 +47,7 @@ export async function PUT(request: Request) {
 
         if (error) return NextResponse.json({ error }, { status: 500 });
 
-        return NextResponse.json({ msg: `Flow saved`, id: body.id });
+        return NextResponse.json({ msg: `Bot updated`, id: body.id });
     } catch (error) {
         console.error('Error saving data:', error);
         return NextResponse.json({ error: 'Failed to save data' }, { status: 500 });
