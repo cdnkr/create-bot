@@ -14,6 +14,7 @@ export async function POST(request: Request) {
         .from('flows')
         .insert({
             id: newFlowId,
+            name: body.name,
             user_id: userId, 
             templates: body.templates, 
             wa_number: body.waNumber,
@@ -37,6 +38,7 @@ export async function PUT(request: Request) {
         const { error } = await supabase
         .from('flows')
         .update({
+            name: body.name,
             templates: body.templates, 
             wa_number: body.waNumber,
             wa_access_token: body.waAccessToken
