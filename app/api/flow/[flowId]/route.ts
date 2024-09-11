@@ -18,7 +18,7 @@ export async function GET(req: Request, { params }: { params: { flowId: string }
             return NextResponse.json({ error: 'Failed to retrieve the flow', details: JSON.stringify(error) }, { status: 500 });
         }
 
-        return NextResponse.json({ data: assignedFlow }, { status: 200 });
+        return NextResponse.json(assignedFlow, { status: 200 });
     } catch (error: any) {
         console.error('Error retrieving flow:', error);
         return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
