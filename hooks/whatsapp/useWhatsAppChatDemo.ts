@@ -4,12 +4,13 @@ import { useEffect, useRef, useState } from "react";
 
 const BOT_INFO = {
   name: 'Sample bot',
-  picture: './assets/whatsapp/images/demo.png'
+  picture: '/assets/whatsapp/images/demo.png'
 };
 
 export function useWhatsAppChatDemo(initialMessages: WhatsAppMessageType[]) {
   const [messages, setMessages] = useState<WhatsAppMessageType[]>([...initialMessages]);
   const [typing, setTyping] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -35,7 +36,7 @@ export function useWhatsAppChatDemo(initialMessages: WhatsAppMessageType[]) {
       type: 'image',
       isBot: false,
       image: {
-        link: './assets/whatsapp/images/demo.png',
+        link: '/assets/whatsapp/images/demo.png',
         caption: inputRef?.current?.value || ''
       },
       time: getTime(),
@@ -67,6 +68,11 @@ export function useWhatsAppChatDemo(initialMessages: WhatsAppMessageType[]) {
   };
 
   useEffect(() => {
+    if (firstLoad) {
+      setFirstLoad(false);
+
+      return;
+    }
     bottomRef.current?.scrollIntoView({
       behavior: "smooth",
     });
