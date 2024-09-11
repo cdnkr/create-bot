@@ -37,7 +37,7 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
    - WAForm component handles capturing and "sending" messages step by step after user input
    - Add completion and failure message related to form
 3. Improve look and feel of select message type by adding icons/skeletons for each message type
-4. Add image upload support on front-end from message editing
+4. ~~Add image upload support on front-end from message editing~~
 5. Add build-flow support
    - ~~Logic~~
    - Error handling
@@ -46,10 +46,8 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 
 ### back-end
 
-1. Add image upload support on back-end to cloud service like cloudinary `{userId}/{flowId}/images/{imageId}.{imageFileExtension}`
-2. ~~Save flow JSON~~ - ~~write to file~~/DB
-   - ~~fs `/flows/{flowId}}`~~
-   - ~~DB~~
+1. ~~Add image upload support on back-end to cloud service like cloudinary~~
+2. ~~Save bot to DB~~
 3. ~~Import flow server side and use with assigned verified WhatsApp number using a webhook~~
    - ~~Implement code~~
       - ~~`GET /api/whatsapp/webhook`~~
@@ -63,11 +61,14 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 
 1. Add message actions - e.g. send email, slack w/ user response
 2. Manage user bots
+   - ~~Add~~
+   - ~~Edit~~
+   - ~~Delete~~
 3. Show how to documentation/links/video on how to set up:
    - WhatsApp business number on Meta Developers console
    - access token/permanent access token
 4. ~~Assign verified phone number to flow~~ - show QR to test https://wa.me/{number}?text=hi 
-   - Flow config
+   - Bot config
       - ~~Input phone number~~
       - ~~Input `WHATSAPP_TOKEN` (used as auth for sending messages)~~
 
