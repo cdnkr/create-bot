@@ -19,14 +19,15 @@ import RoundedBtn from "./rounded-button";
 import WhatsAppUtilityButton from "./utility-button";
 import Button from "@/components/general/button";
 import { IoCheckmarkDone } from "react-icons/io5";
+import Image from "next/image";
 
 interface Props {
   botDetails: any;
 }
 
 function WhatsAppChat({ botDetails }: Props) {
-  const [initialFlow] = useState(botDetails?.templates);
-  const [initialMessages] = useState(botDetails?.templates ? [initialFlow['start']] : []);
+  const [initialTemplates] = useState(botDetails?.templates);
+  const [initialMessages] = useState(botDetails?.templates ? [botDetails.templates['start']] : []);
 
   // TODO: add aut add of follow up message if exists on new user message
 
@@ -54,11 +55,11 @@ function WhatsAppChat({ botDetails }: Props) {
 
   const [showSelectMessageType, setShowSelectMessageType] = useState(false);
   const [userResponse, setUserResponse] = useState('');
-  const [builtFlow, setBuiltFlow] = useState<any>(initialFlow || {});
+  const [templates, setTemplates] = useState<any>(initialTemplates || {});
   const [waAccessToken, setWaAccessToken] = useState(botDetails?.wa_token || process.env.NEXT_PUBLIC_WA_AT || '');
   const [waNumber, setWaNumber] = useState(botDetails?.wa_number || process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
-  const [flowId, setFlowId] = useState<string | null>(botDetails?.id || null);
-  const [flowName, setFlowName] = useState(botDetails?.name || '');
+  const [botId, setBotId] = useState<string | null>(botDetails?.id || null);
+  const [botName, setBotName] = useState(botDetails?.name || '');
 
   function onAddClick() {
     setShowSelectMessageType(true);
@@ -72,20 +73,20 @@ function WhatsAppChat({ botDetails }: Props) {
       return;
     }
 
-    setBuiltFlow((bf: any) => {
-      const hasStartMessageInFlow = Boolean(bf['start']);
+    setTemplates((t: any) => {
+      const hasStartMessageInTemplates = Boolean(t['start']);
 
       console.log({
-        hasStartMessageInFlow,
+        hasStartMessageInTemplates,
         userResponse,
         chk: isValidUUID(userResponse)
       })
 
-      if (!userResponse && hasStartMessageInFlow) return bf;
-      if (userResponse && !isValidUUID(userResponse)) return bf;
+      if (!userResponse && hasStartMessageInTemplates) return t;
+      if (userResponse && !isValidUUID(userResponse)) return t;
 
       return {
-        ...bf,
+        ...t,
         [userResponse || 'start']: newMessage
       };
     });
@@ -103,31 +104,31 @@ function WhatsAppChat({ botDetails }: Props) {
     return 'Add follow up message';
   }
 
-  async function saveFlow(flow: any) {
+  async function saveBot(templates: any) {
     // TODO: add success failure handling
-    if (flowId) {
-      await axios.put('/api/flow/save', { id: flowId, templates: flow, waAccessToken, waNumber, name: flowName });
+    if (botId) {
+      await axios.put('/api/bot/save', { id: botId, templates: templates, waAccessToken, waNumber, name: botName });
 
       return;
     }
-    const response = await axios.post('/api/flow/save', { templates: flow, waAccessToken, waNumber, name: flowName });
+    const response = await axios.post('/api/bot/save', { templates: templates, waAccessToken, waNumber, name: botName });
 
-    const newFlowId = response.data.id;
+    const newBotId = response.data.id;
 
-    setFlowId(newFlowId);
+    setBotId(newBotId);
   }
 
   // TODO: re-enable later for drafts
   // useEffect(() => {
-  //   if (isEmptyObject(builtFlow)) return;
-  //   console.log(builtFlow);
-  //   saveFlow(builtFlow);
-  // }, [builtFlow]);
+  //   if (isEmptyObject(templates)) return;
+  //   console.log(templates);
+  //   saveBot(templates);
+  // }, [templates]);
 
   function onDoneClick() {
-    if (isEmptyObject(builtFlow)) return;
-    console.log(builtFlow);
-    saveFlow(builtFlow);
+    if (isEmptyObject(templates)) return;
+    console.log(templates);
+    saveBot(templates);
   };
 
   return (
@@ -136,8 +137,8 @@ function WhatsAppChat({ botDetails }: Props) {
         <h2 className="bold text-2xl font-semibold">Config</h2>
         <div className="w-full flex flex-col md:flex-row gap-3">
           <Input
-            value={flowName}
-            onChange={e => setFlowName(e.target.value)}
+            value={botName}
+            onChange={e => setBotName(e.target.value)}
             placeholder="Bot name"
           />
           <Input
@@ -156,10 +157,12 @@ function WhatsAppChat({ botDetails }: Props) {
       <div className="flex relative flex-col h-[80vh] no-scrollbar rounded-xl overflow-hidden">
         <div className="flex justify-between bg-[#202d33] h-[60px] p-3">
           <div className="flex items-center">
-            <img
+            <Image
               src={BOT_INFO.picture}
               alt="profile_picture"
               className="rounded-full w-[45px] h-[45px] mr-5"
+              height={45}
+              width={45}
             />
             <div className="flex flex-col">
               <h1 className="text-white font-medium">{BOT_INFO.name}</h1>

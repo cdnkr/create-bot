@@ -30,27 +30,27 @@ async function handleWebhookPost(request: NextRequest): Promise<NextResponse> {
         }
 
         const { data, error } = await supabase
-            .from('flows')
+            .from('bots')
             .select('*')
             .eq('wa_number', displayNumber);
 
-        const assignedFlow = Array.isArray(data) ? data[data.length - 1] : null;
+        const assignedBot = Array.isArray(data) ? data[data.length - 1] : null;
 
         if (error) {
-            console.error('Error retrieving flow:', error);
-            return NextResponse.json({ error: 'Failed to retrieve the flow' }, { status: 500 });
+            console.error('Error retrieving bot:', error);
+            return NextResponse.json({ error: 'Failed to retrieve the bot' }, { status: 500 });
         }
 
         const to = body.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.from;
 
         if (userResponse && to) {
-            let replyMessage = getNextMessage(userResponse, assignedFlow.templates);
+            let replyMessage = getNextMessage(userResponse, assignedBot.templates);
 
             delete replyMessage.isBot;
             delete replyMessage.messageKey;
             delete replyMessage.safeType;
 
-            await sendWhatsAppMessage(to, replyMessage, phoneNumberId, assignedFlow.wa_access_token);
+            await sendWhatsAppMessage(to, replyMessage, phoneNumberId, assignedBot.wa_access_token);
 
             return NextResponse.json({ success: true }, { status: 200 });
         }

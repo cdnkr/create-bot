@@ -23,8 +23,8 @@ const BOT_TYPES = [
 export default async function AppHomePage() {
   const userId = '5ab6b5e3-5cbe-48dd-8714-b97d5f090cc2';
 
-  const response = await axios.get(`${process.env.APP_URL}/api/flow/by-user/${userId}`);
-  const flows = response.data;
+  const response = await axios.get(`${process.env.APP_URL}/api/bot/by-user/${userId}`);
+  const bots = response.data;
 
   return (
     <div className="w-full flex flex-col gap-5">
@@ -34,6 +34,7 @@ export default async function AppHomePage() {
       <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-4 justify-items-center justify-center gap-10 mt-5 mb-5`}>
         {BOT_TYPES.map(botType => (
           <Card
+            key={botType.type}
             title={botType.type}
             description={botType.type}
             link={botType.link}
@@ -42,11 +43,12 @@ export default async function AppHomePage() {
       </div>
       <h1 className="text-3xl font-bold"><span className="font-light">Pick up where you left off...</span></h1>
       <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-3 justify-items-center justify-center gap-10 mt-5 mb-5`}>
-        {flows.map((flowDetails: any) => (
+        {bots.map((botDetails: any) => (
           <Card
-            title={flowDetails.name}
-            description={flowDetails.created_at}
-            link={`/app/bot/whatsapp/edit/${flowDetails.id}`}
+            key={botDetails.id}
+            title={botDetails.name}
+            description={botDetails.created_at}
+            link={`/app/bot/whatsapp/edit/${botDetails.id}`}
           />
         ))}
       </div>

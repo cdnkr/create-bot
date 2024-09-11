@@ -9,7 +9,7 @@ interface Props {
 const EditWhatsAppBotPage: React.FC<Props> = async ({
   params: { id },
 }) => {
-  const response = await axios.get(`${process.env.APP_URL}/api/flow/${id}`);
+  const response = await axios.get(`${process.env.APP_URL}/api/bot/${id}`);
   if (!response?.data) return (
     <Error
       errorCode={404}
