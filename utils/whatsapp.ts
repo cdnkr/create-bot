@@ -38,10 +38,10 @@ export function extractUserResponse(body: Body): string | undefined {
     return undefined;
 }
 
-export function getNextMessage(userResponse: string, assignedFlow: any) {
-    if (typeof assignedFlow[userResponse] === 'undefined') return assignedFlow['start'];
+export function getNextMessage(userResponse: string, templates: any) {
+    if (typeof templates[userResponse] === 'undefined') return templates['start'];
 
-    const nextMessage = assignedFlow[userResponse];
+    const nextMessage = templates[userResponse];
 
     return nextMessage;
 }
