@@ -6,6 +6,7 @@ import WALocationMessage from "./location";
 import WATextMessage from "./text";
 import WAInteractiveReplyMessage from "./interactive/reply";
 import WAInteractiveUrlMessage from "./interactive/link";
+import WAVideoMessage from "./video";
 
 interface Props {
   message: WhatsAppMessageType;
@@ -20,6 +21,15 @@ function Message({ message, setUserResponse, setMessages, editing = null }: Prop
     <div
       className={`flex justify-center items-center rounded-md w-fit my-1 ${message.type === 'interactive' ? 'min-w-44' : ''} ${!message.isBot ? "bg-[#005c4b] ml-auto" : "bg-[#202d33] mr-auto"}`}
     >
+
+      {/* Text (link/normal) message */}
+      {(message.type === 'text') && (
+        <WATextMessage
+          message={message}
+          editing={editing}
+        />
+      )}
+
       {/* Image message */}
       {(message.type === 'image') && (
         <WAImageMessage
@@ -28,9 +38,9 @@ function Message({ message, setUserResponse, setMessages, editing = null }: Prop
         />
       )}
 
-      {/* Text (link/normal) message */}
-      {(message.type === 'text') && (
-        <WATextMessage
+      {/* Video message */}
+      {(message.type === 'video') && (
+        <WAVideoMessage
           message={message}
           editing={editing}
         />
