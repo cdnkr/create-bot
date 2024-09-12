@@ -26,10 +26,10 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
    - ~~Image~~
    - ~~Document~~
    - ~~Location~~
-   - Video
-   - Interactive reply buttons
+   - ~~Video~~
+   - ~~Interactive reply buttons~~
    - ~~Interactive list~~
-   - Interactive CTA with URL buttons
+   - ~~Interactive CTA with URL buttons~~
 3. Add custom form message type
    - new WA message type
       - fields property e.g. name, surname, dob
