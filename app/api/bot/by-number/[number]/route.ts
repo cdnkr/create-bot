@@ -11,7 +11,7 @@ export async function GET(req: Request, { params }: { params: { number: string }
             .select('*')
             .eq('wa_number', number);
         
-        const botDetails = Array.isArray(data) ? data[data.length - 1] : null;
+        const botDetails = Array.isArray(data) ? data[0] : null;
 
         if (error) {
             console.error('Error retrieving bot:', error);

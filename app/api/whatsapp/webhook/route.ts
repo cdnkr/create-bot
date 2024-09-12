@@ -34,7 +34,7 @@ async function handleWebhookPost(request: NextRequest): Promise<NextResponse> {
             .select('*')
             .eq('wa_number', displayNumber);
 
-        const assignedBot = Array.isArray(data) ? data[data.length - 1] : null;
+        const assignedBot = Array.isArray(data) ? data[0] : null;
 
         if (error) {
             console.error('Error retrieving bot:', error);
