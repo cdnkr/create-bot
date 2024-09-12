@@ -12,7 +12,9 @@ const ALLOWED_MIME_TYPES = [
   'application/vnd.openxmlformats-officedocument.presentationml.presentation',
   'application/pdf',
   'image/jpeg',
-  'image/png'
+  'image/png',
+  'video/mp4',
+  'video/3gp'
 ];
 
 export async function POST(request: NextRequest) {
