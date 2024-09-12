@@ -3,7 +3,8 @@ import SelectLocationModal from "@/components/google-places/select-location/in-m
 import { WhatsAppLocationMessage } from "@/types/whatsapp";
 import { getTime } from "@/utils/time";
 import { useState } from "react";
-import EditWhatsAppMessageField from "../edit-field";
+import { BiPlus } from "react-icons/bi";
+import WhatsAppUtilityButton from "../utility-button";
 import { formatMessageText } from "./utils";
 
 interface Props {
@@ -12,19 +13,26 @@ interface Props {
 }
 
 function WALocationMessage({ message, editing = null }: Props) {
-    const [isUploading, setIsUploading] = useState(false);
     const [showSelectLocation, setShowSelectLocation] = useState(false);
 
     return (
         <>
-            <div className="relative min-w-44 max-w-52 w-100 p-2 pb-7">
+            <div className="relative min-w-44 w-100 p-2 pb-7">
                 <div className="w-full">
                     {editing ? (
-                        <div onClick={() => setShowSelectLocation(true)} className="cursor-pointer w-full h-auto min-w-40 min-h-40 bg-slate-400 rounded-md">
-                            <GoogleMapComponent
-                                location={editing.get(['location'])}
-                                height="160px"
-                            />
+                        <div onClick={() => setShowSelectLocation(true)} className="cursor-pointer w-full h-auto rounded-md">
+
+                            {editing.get(['location'])?.latitude ? (
+                                <GoogleMapComponent
+                                    location={editing.get(['location'])}
+                                    height="160px"
+                                />
+                            ) : (
+                                <WhatsAppUtilityButton 
+                                    label="Click to add location" 
+                                    Icon={<BiPlus />}
+                                />
+                            )}
                         </div>
                     ) : (
                         <GoogleMapComponent
@@ -33,26 +41,12 @@ function WALocationMessage({ message, editing = null }: Props) {
                         />
                     )}
                     <div>
-                        {!editing ? formatMessageText(message.location.name || 'Location name') : (
-                            <EditWhatsAppMessageField
-                                value={editing.get(['location', 'name'])}
-                                onChange={e => editing.set(['location', 'name'], e.target.value)}
-                                placeholder="Location name"
-                            />
-                        )}
+                        {formatMessageText(editing?.get(['location', 'name']) || message.location.name || 'Location name')}
                     </div>
                     <div>
-                        {!editing ? (
-                            <p className="text-[#8796a1] text-[10px] underline">
-                                {message.location.address || 'Location address'}
-                            </p>
-                        ) : (
-                            <EditWhatsAppMessageField
-                                value={editing.get(['location', 'address'])}
-                                onChange={e => editing.set(['location', 'address'], e.target.value)}
-                                placeholder="Location address"
-                            />
-                        )}
+                        <p className="text-[#8796a1] text-[10px] underline">
+                            {editing?.get(['location', 'address']) || message.location.address || 'Location address'}
+                        </p>
                     </div>
                 </div>
                 <p className="absolute right-2 bottom-2 text-[#8796a1] text-[10px] min-w-[50px]">
