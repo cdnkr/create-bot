@@ -25,7 +25,7 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
    - ~~Text~~
    - ~~Image~~
    - ~~Document~~
-   - Location
+   - ~~Location~~
    - Video
    - Interactive reply buttons
    - ~~Interactive list~~
@@ -36,13 +36,20 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
    - high level, display WAForm instead of WAMessage
    - WAForm component handles capturing and "sending" messages step by step after user input
    - Add completion and failure message related to form
-3. Improve look and feel of select message type by adding icons/skeletons for each message type
+3. ~~Improve look and feel of select message type by adding icons/skeletons for each message type~~
 4. ~~Add image upload support on front-end from message editing~~
 5. Add build-flow support
    - ~~Logic~~
    - Error handling
    - How-to/info content
 6. Add error/retry WhatsApp message support
+7. Add config page with step by step on how to get your:
+   - WA number
+   - WA Access token
+      - 24hr temp
+      - Permanent
+   - Integrate webhook
+   - Add get help/contact button to reach out
 
 ### back-end
 
