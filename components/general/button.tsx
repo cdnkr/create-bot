@@ -19,7 +19,7 @@ function Button({
     Icon,
     iconEnd = false,
     color = 'black',
-    hoverScale = true
+    hoverScale = false
 }: Props) {
     const COLOR_STYLES = {
         black: 'text-white bg-black',
