@@ -1,6 +1,5 @@
 'use client';
 
-import useLoadGoogleMaps from '@/hooks//google-places/useLoadGoogleMaps';
 import { PlaceLocation } from '@/types/geo';
 import { useEffect, useRef } from 'react';
 import Input from '../general/input';
@@ -38,8 +37,8 @@ const GooglePlacesAutocompleteInput = ({
                 if (place.geometry) {
                     const { lat, lng } = place.geometry.location;
                     setLocation({
-                        lat: lat(),
-                        lng: lng(),
+                        latitude: lat(),
+                        longitude: lng(),
                         address: place.formatted_address,
                         name: place.name
                     });

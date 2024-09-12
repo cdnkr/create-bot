@@ -1,7 +1,7 @@
 
 export interface PlaceLocation {
-    lat: number | null,
-    lng: number | null,
-    address?: '',
-    name?: ''
+    latitude: number | null | string;
+    longitude: number | null | string;
+    address: string;
+    name: string;
 }
