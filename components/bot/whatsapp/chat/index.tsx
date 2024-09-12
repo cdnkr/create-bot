@@ -20,6 +20,8 @@ import WhatsAppUtilityButton from "./utility-button";
 import Button from "@/components/general/button";
 import { IoCheckmarkDone } from "react-icons/io5";
 import Image from "next/image";
+import SelectLocationModal from "@/components/google-places/select-location/in-modal";
+import { PlaceLocation } from "@/types/geo";
 
 interface Props {
   botDetails: any;
@@ -60,6 +62,9 @@ function WhatsAppChat({ botDetails }: Props) {
   const [waNumber, setWaNumber] = useState(botDetails?.wa_number || process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
   const [botId, setBotId] = useState<string | null>(botDetails?.id || null);
   const [botName, setBotName] = useState(botDetails?.name || '');
+
+  const [showSelectLocation, setShowSelectLocation] = useState(true);
+  const [placeLocation, setPlaceLocation] = useState<PlaceLocation | null>(null);
 
   function onAddClick() {
     setShowSelectMessageType(true);
@@ -252,8 +257,20 @@ function WhatsAppChat({ botDetails }: Props) {
           className="w-full md:w-80"
           onClick={onDoneClick}
         />
+        <Button
+          text="Show Location ting"
+          className="w-full md:w-80"
+          onClick={() => setShowSelectLocation(true)}
+        />
       </div>
+      <SelectLocationModal 
+        showModal={showSelectLocation}
+        setShowModal={setShowSelectLocation}
+        location={placeLocation}
+        setLocation={setPlaceLocation}
+      />
     </>
+    
   );
 }
 
