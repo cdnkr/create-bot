@@ -1,3 +1,5 @@
+import { PlaceLocation } from "./geo";
+
 export type WhatsAppMessageType =
     | WhatsAppTextMessage
     | WhatsAppImageMessage
@@ -55,12 +57,7 @@ export interface WhatsAppDocumentMessage extends WhatsAppBaseMessage {
 export interface WhatsAppLocationMessage extends WhatsAppBaseMessage {
     type: "location";
     safeType: WhatsAppMessageSafeType.WhatsAppLocationMessage;
-    location: {
-        latitude: string;
-        longitude: string;
-        name?: string;
-        address?: string;
-    };
+    location: PlaceLocation;
 }
 
 export interface WhatsAppVideoMessage extends WhatsAppBaseMessage {
