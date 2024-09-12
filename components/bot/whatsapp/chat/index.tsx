@@ -236,7 +236,7 @@ function WhatsAppChat({ botDetails }: Props) {
       </div>
       <Modal showModal={showSelectMessageType} setShowModal={setShowSelectMessageType}>
         <div className="w-full p-8 flex flex-col gap-5">
-          <h1 className="font-bold text-2xl">Select message type</h1>
+          <h1 className="font-bold text-2xl text-center">Select message type</h1>
           <SelectMessageType
             onSelectMessageTypeClick={onSelectMessageTypeClick}
             newMessage={newMessage}

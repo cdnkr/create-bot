@@ -1,8 +1,6 @@
 import Button from '@/components/general/button';
-import Label from '@/components/general/label';
 import messageTypeInitializers from '@/data/whatsapp/message-type-initializers';
-import { WhatsAppMessageType } from '@/types/whatsapp';
-import { camelCaseToText } from '@/utils/text';
+import { whatsAppMessageReadableLabels, WhatsAppMessageType } from '@/types/whatsapp';
 import { useEffect } from 'react';
 import { BiInfoCircle } from 'react-icons/bi';
 import { FaExternalLinkSquareAlt, FaImage, FaReply, FaVideo } from 'react-icons/fa';
@@ -38,24 +36,24 @@ function SelectMessageType({ onSelectMessageTypeClick, setShowSelectMessageType,
 
     return (
         <div className='w-full'>
-            <div className='w-full flex gap-5 pt-5 border-solid border-t-2 border-gray-200'>
+            <div className='w-full flex flex-col gap-5 pt-5 border-solid border-t-2 border-gray-200'>
                 {/* <Label label="Select message type" /> */}
-                <div className="flex flex-wrap w-full gap-y-2 gap-x-5">
+                <div className="grid grid-cols-3 w-full gap-2">
                     {Object.keys(messageTypeInitializers).map((key) => (
                         <div
                             key={key}
-                            className={`w-full ${messageTypeInitializers[key].messageKey === newMessage?.messageKey ? 'text-blue-500' : ''} cursor-pointer gap-2 p-2 flex items-center rounded-lg text-xl transition-all hover:text-blue-500`}
+                            className={`w-full ${messageTypeInitializers[key].messageKey === newMessage?.messageKey ? 'text-blue-500 bg-white' : 'text-gray-500 bg-white'} cursor-pointer gap-2 p-2 flex flex-col justify-center items-center rounded-lg text-xl transition-all shadow-md hover:shadow-lg hover:text-black`}
                             onClick={() => onSelectMessageTypeClick(key)}
                         >
                             {ICONS[key]}
-                            <span className={`text-sm`}>
-                                {camelCaseToText(key)}
+                            <span className={`text-xs`}>
+                                {whatsAppMessageReadableLabels[messageTypeInitializers[key].safeType]}
                             </span>
                         </div>
                     ))}
                 </div>
-                <div className='w-full hidden md:block'>
-                    <Label label='Preview' />
+                <div className='w-full flex flex-col items-center p-5'>
+                    <p className='text-gray-500 text-sm'>Preview</p>
                     <div className='relative'>
                         {newMessage && <Message message={newMessage} />}
                     </div>

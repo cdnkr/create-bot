@@ -202,3 +202,14 @@ export enum WhatsAppMessageSafeType {
     WhatsAppInteractiveCtaUrlMessage = "WhatsAppInteractiveCtaUrlMessage",
     WhatsAppInteractiveListMessage = "WhatsAppInteractiveListMessage"
 }
+
+export const whatsAppMessageReadableLabels: { [key: string]: string } = {
+    WhatsAppTextMessage: "Text",
+    WhatsAppImageMessage: "Image",
+    WhatsAppDocumentMessage: "Document",
+    WhatsAppLocationMessage: "Location",
+    WhatsAppVideoMessage: "Video",
+    WhatsAppInteractiveButtonMessage: "Reply button(s)",
+    WhatsAppInteractiveCtaUrlMessage: "URL button(s)",
+    WhatsAppInteractiveListMessage: "Menu list"
+}
