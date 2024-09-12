@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { LegacyRef } from 'react'
 import Label from './label';
 
 interface Props {
@@ -8,6 +8,8 @@ interface Props {
     label?: string;
     className?: string;
     placeholder?: string;
+    showBorderOnFocus?: boolean;
+    _ref?: LegacyRef<HTMLInputElement>;
 }
 
 function Input({
@@ -16,8 +18,11 @@ function Input({
     icon,
     label = '',
     className = '',
-    placeholder = ''
+    placeholder = '',
+    showBorderOnFocus = true,
+    _ref
 }: Props) {
+    const focusBorder = showBorderOnFocus ? 'focus:border-blue-300' : '';
 
     return (
         <div className='w-full'>
@@ -29,10 +34,11 @@ function Input({
                     </div>
                 )}
                 <input
+                    ref={_ref}
                     value={value}
                     onChange={onChange}
                     type='text'
-                    className={`${className} ${icon ? 'ps-12' : ''} 'rounded-full p-2.5 rounded-lg w-full text-base md:text-sm block bg-gray-100 placeholder-gray-400  border-transparent border-solid border-4 focus:border-blue-300 focus:outline-none`}
+                    className={`${className} ${icon ? 'ps-12' : ''} ${focusBorder} p-2.5 rounded-lg w-full text-base md:text-sm block bg-gray-100 placeholder-gray-400  border-transparent border-solid border-4 focus:outline-none`}
                     placeholder={placeholder}
                 />
             </div>
