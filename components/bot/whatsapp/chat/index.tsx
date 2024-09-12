@@ -1,27 +1,24 @@
 import SelectMessageType from "@/components/bot/whatsapp/select-message-type";
+import Button from "@/components/general/button";
 import Input from "@/components/general/input";
 import Modal from "@/components/general/modal";
 import messageTypeInitializers from "@/data/whatsapp/message-type-initializers";
 import { useNestedState } from "@/hooks/state/useNestedState";
 import { useWhatsAppChatDemo } from "@/hooks/whatsapp/useWhatsAppChatDemo";
-import { WhatsAppMessageType } from "@/types/whatsapp";
 import { isEmptyObject } from "@/utils/object";
 import { isValidUUID } from "@/utils/uuid";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiCheckCircle, BiHappy, BiPlus } from "react-icons/bi";
 import { BsFillMicFill } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
+import { IoCheckmarkDone } from "react-icons/io5";
 import { MdSearch, MdSend } from "react-icons/md";
 import Message from "./message";
 import RoundedBtn from "./rounded-button";
 import WhatsAppUtilityButton from "./utility-button";
-import Button from "@/components/general/button";
-import { IoCheckmarkDone } from "react-icons/io5";
-import Image from "next/image";
-import SelectLocationModal from "@/components/google-places/select-location/in-modal";
-import { PlaceLocation } from "@/types/geo";
 
 interface Props {
   botDetails: any;
@@ -62,9 +59,6 @@ function WhatsAppChat({ botDetails }: Props) {
   const [waNumber, setWaNumber] = useState(botDetails?.wa_number || process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
   const [botId, setBotId] = useState<string | null>(botDetails?.id || null);
   const [botName, setBotName] = useState(botDetails?.name || '');
-
-  const [showSelectLocation, setShowSelectLocation] = useState(true);
-  const [placeLocation, setPlaceLocation] = useState<PlaceLocation | null>(null);
 
   function onAddClick() {
     setShowSelectMessageType(true);
@@ -257,20 +251,8 @@ function WhatsAppChat({ botDetails }: Props) {
           className="w-full md:w-80"
           onClick={onDoneClick}
         />
-        <Button
-          text="Show Location ting"
-          className="w-full md:w-80"
-          onClick={() => setShowSelectLocation(true)}
-        />
       </div>
-      <SelectLocationModal 
-        showModal={showSelectLocation}
-        setShowModal={setShowSelectLocation}
-        location={placeLocation}
-        setLocation={setPlaceLocation}
-      />
     </>
-    
   );
 }
 
