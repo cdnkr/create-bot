@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main
       className="grid lg:grid-cols-2 place-items-center pb-8 md:pb-24">
-      <div className="py-6 md:order-1 hidden md:block">
+      <div className="pb-9 md:pb-6 md:py-6 md:order-1">
         <Image
           className="rounded-xl"
           src={`/assets/bot.png`}
