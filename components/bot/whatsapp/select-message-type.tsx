@@ -52,14 +52,14 @@ function SelectMessageType({ onSelectMessageTypeClick, setShowSelectMessageType,
                         </div>
                     ))}
                 </div>
-                <div className='w-full flex flex-col items-center p-5'>
+                <div className='w-full flex flex-col items-center px-5 py-2 pb-3'>
                     <p className='text-gray-500 text-sm'>Preview</p>
                     <div className='relative'>
                         {newMessage && <Message message={newMessage} />}
                     </div>
                 </div>
             </div>
-            <div className='w-full flex items-center gap-2 text-gray-500 justify-center mt-5 pt-5 border-solid border-t-2 border-gray-200'>
+            <div className='w-full flex items-center gap-2 text-gray-500 justify-center'>
                 <div className='text-xl'>
                     <BiInfoCircle />
                 </div>
