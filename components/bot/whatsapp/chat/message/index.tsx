@@ -4,6 +4,7 @@ import WAImageMessage from "./image";
 import WAInteractiveListMessage from "./interactive/list";
 import WALocationMessage from "./location";
 import WATextMessage from "./text";
+import WAInteractiveReplyMessage from "./interactive/reply";
 
 interface Props {
   message: WhatsAppMessageType;
@@ -55,6 +56,16 @@ function Message({ message, setUserResponse, setMessages, editing = null }: Prop
       {/* use `safeType` as standard WA Cloud API `type` field is not sufficient for TypeScript checking */}
       {(message.safeType === WhatsAppMessageSafeType.WhatsAppInteractiveListMessage) && (
         <WAInteractiveListMessage
+          message={message}
+          setUserResponse={setUserResponse}
+          editing={editing}
+          setMessages={setMessages}
+        />
+      )}
+
+      {/* Interactive reply button messages */}
+      {(message.safeType === WhatsAppMessageSafeType.WhatsAppInteractiveButtonMessage) && (
+        <WAInteractiveReplyMessage
           message={message}
           setUserResponse={setUserResponse}
           editing={editing}
