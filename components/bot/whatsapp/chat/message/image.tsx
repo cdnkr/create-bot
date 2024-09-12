@@ -1,12 +1,11 @@
-import { WhatsAppImageMessage } from "@/types/whatsapp";
-import { getTime } from "@/utils/time";
-import EditWhatsAppMessageField from "../edit-field";
-import { formatMessageText } from "./utils";
 import FileUpload from "@/components/general/file-upload";
 import LoadingSpinner from "@/components/general/loading-spinner";
-import { useState } from "react";
-import { getFileNameFromUrl } from "@/utils/file";
+import { WhatsAppImageMessage } from "@/types/whatsapp";
+import { getTime } from "@/utils/time";
 import Image from "next/image";
+import { useState } from "react";
+import EditWhatsAppMessageField from "../edit-field";
+import { formatMessageText } from "./utils";
 
 interface Props {
     message: WhatsAppImageMessage;
@@ -23,7 +22,6 @@ function WAImageMessage({ message, editing = null }: Props) {
                     <FileUpload
                         setFileUrl={fileUrl => editing.set(['image'], {
                             link: fileUrl,
-                            filename: getFileNameFromUrl(fileUrl),
                             caption: editing.get(['image', 'caption'])
                         })}
                         setIsUploading={setIsUploading}
