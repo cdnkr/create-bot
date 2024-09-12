@@ -102,8 +102,12 @@ export interface WhatsAppInteractiveCtaUrlMessage extends WhatsAppBaseMessage {
     interactive: {
         type: "cta_url";
         header?: {
-            type: "text";
-            text: string;
+            type: "text" | "image";
+            text?: string;
+            image?: {
+                id?: string;
+                link?: string;
+            };
         };
         body?: {
             text: string;
@@ -113,10 +117,7 @@ export interface WhatsAppInteractiveCtaUrlMessage extends WhatsAppBaseMessage {
         };
         action: {
             name: "cta_url";
-            parameters: {
-                display_text: string;
-                url: string;
-            };
+            parameters: WhatsAppMessageCtaParameters;
         };
     };
 }
@@ -148,7 +149,7 @@ export interface WhatsAppInteractiveListMessage extends WhatsAppBaseMessage {
     };
 }
 
-export type WhatsAppInteractiveListMessageSection =                 {
+export type WhatsAppInteractiveListMessageSection = {
     title: string;
     rows: WhatsAppInteractiveListMessageSectionRow[]
 };
@@ -164,10 +165,7 @@ export type WhatsAppAction = {
     button?: string;
     buttons?: WhatsAppMessageReplyButton[];
     name?: "cta_url";
-    parameters?: {
-        display_text: string;
-        url: string;
-    };
+    parameters?: WhatsAppMessageCtaParameters;
 };
 
 export interface WhatsAppListMessageSection {
@@ -190,6 +188,11 @@ export interface WhatsAppMessageReply {
     id: string;
     title: string;
 }
+
+export interface WhatsAppMessageCtaParameters {
+    display_text: string;
+    url: string;
+};
 
 // added as standard WA Cloud API type field is not sufficient for TypeScript checking
 export enum WhatsAppMessageSafeType {

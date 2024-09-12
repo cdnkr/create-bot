@@ -5,6 +5,7 @@ import WAInteractiveListMessage from "./interactive/list";
 import WALocationMessage from "./location";
 import WATextMessage from "./text";
 import WAInteractiveReplyMessage from "./interactive/reply";
+import WAInteractiveUrlMessage from "./interactive/link";
 
 interface Props {
   message: WhatsAppMessageType;
@@ -66,6 +67,16 @@ function Message({ message, setUserResponse, setMessages, editing = null }: Prop
       {/* Interactive reply button messages */}
       {(message.safeType === WhatsAppMessageSafeType.WhatsAppInteractiveButtonMessage) && (
         <WAInteractiveReplyMessage
+          message={message}
+          setUserResponse={setUserResponse}
+          editing={editing}
+          setMessages={setMessages}
+        />
+      )}
+
+      {/* Interactive CTA URL messages */}
+      {(message.safeType === WhatsAppMessageSafeType.WhatsAppInteractiveCtaUrlMessage) && (
+        <WAInteractiveUrlMessage
           message={message}
           setUserResponse={setUserResponse}
           editing={editing}
