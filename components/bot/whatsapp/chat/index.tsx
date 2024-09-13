@@ -2,6 +2,7 @@ import SelectMessageType from "@/components/bot/whatsapp/select-message-type";
 import Button from "@/components/general/button";
 import Input from "@/components/general/input";
 import Modal from "@/components/general/modal";
+import QRModal from "@/components/qr/in-modal";
 import messageTypeInitializers from "@/data/whatsapp/message-type-initializers";
 import { useNestedState } from "@/hooks/state/useNestedState";
 import { useWhatsAppChatDemo } from "@/hooks/whatsapp/useWhatsAppChatDemo";
@@ -9,17 +10,17 @@ import { isEmptyObject } from "@/utils/object";
 import { isValidUUID } from "@/utils/uuid";
 import axios from "axios";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiCheckCircle, BiHappy, BiPlus } from "react-icons/bi";
 import { BsFillMicFill } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
 import { IoCheckmarkDone } from "react-icons/io5";
-import { MdSearch, MdSend } from "react-icons/md";
+import { MdOutlineSaveAlt, MdSearch, MdSend } from "react-icons/md";
 import Message from "./message";
 import RoundedBtn from "./rounded-button";
 import WhatsAppUtilityButton from "./utility-button";
-import QRModal from "@/components/qr/in-modal";
 
 interface Props {
   botDetails: any;
@@ -31,7 +32,7 @@ function WhatsAppChat({ botDetails }: Props) {
 
   // TODO: add aut add of follow up message if exists on new user message
 
-  console.log({botDetails})
+  console.log({ botDetails })
 
   const {
     messages,
@@ -62,6 +63,9 @@ function WhatsAppChat({ botDetails }: Props) {
   const [waNumber, setWaNumber] = useState(botDetails?.wa_number || process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
   const [botId, setBotId] = useState<string | null>(botDetails?.id || null);
   const [botName, setBotName] = useState(botDetails?.name || '');
+
+  const pathname = usePathname();
+  const isEditPage = pathname.includes('new');
 
   function onAddClick() {
     setShowSelectMessageType(true);
@@ -128,10 +132,10 @@ function WhatsAppChat({ botDetails }: Props) {
   // }, [templates]);
 
   function onDoneClick() {
+    if (isEmptyObject(templates)) return;
+    console.log(templates);
+    saveBot(templates);
     setShowDoneModal(true);
-    // if (isEmptyObject(templates)) return;
-    // console.log(templates);
-    // saveBot(templates);
   };
 
   return (
@@ -248,15 +252,15 @@ function WhatsAppChat({ botDetails }: Props) {
           />
         </div>
       </Modal>
-      <QRModal 
+      <QRModal
         showModal={showDoneModal}
         setShowModal={setShowDoneModal}
         content={`https://wa.me/${waNumber}?text=Hi`}
       />
       <div className="w-full flex justify-center mt-5">
         <Button
-          text="Done"
-          Icon={<IoCheckmarkDone />}
+          text={isEditPage ? "Done" : "Save"}
+          Icon={isEditPage ? <IoCheckmarkDone /> : <MdOutlineSaveAlt />}
           className="w-full md:w-80"
           onClick={onDoneClick}
         />
