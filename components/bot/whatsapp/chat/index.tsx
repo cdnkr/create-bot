@@ -19,6 +19,7 @@ import { MdSearch, MdSend } from "react-icons/md";
 import Message from "./message";
 import RoundedBtn from "./rounded-button";
 import WhatsAppUtilityButton from "./utility-button";
+import QRModal from "@/components/qr/in-modal";
 
 interface Props {
   botDetails: any;
@@ -53,6 +54,8 @@ function WhatsAppChat({ botDetails }: Props) {
   } = useNestedState(null);
 
   const [showSelectMessageType, setShowSelectMessageType] = useState(false);
+  const [showDoneModal, setShowDoneModal] = useState(false);
+
   const [userResponse, setUserResponse] = useState('');
   const [templates, setTemplates] = useState<any>(initialTemplates || {});
   const [waAccessToken, setWaAccessToken] = useState(botDetails?.wa_token || process.env.NEXT_PUBLIC_WA_AT || '');
@@ -125,9 +128,10 @@ function WhatsAppChat({ botDetails }: Props) {
   // }, [templates]);
 
   function onDoneClick() {
-    if (isEmptyObject(templates)) return;
-    console.log(templates);
-    saveBot(templates);
+    setShowDoneModal(true);
+    // if (isEmptyObject(templates)) return;
+    // console.log(templates);
+    // saveBot(templates);
   };
 
   return (
@@ -244,6 +248,11 @@ function WhatsAppChat({ botDetails }: Props) {
           />
         </div>
       </Modal>
+      <QRModal 
+        showModal={showDoneModal}
+        setShowModal={setShowDoneModal}
+        content={`https://wa.me/${waNumber}?text=Hi`}
+      />
       <div className="w-full flex justify-center mt-5">
         <Button
           text="Done"
