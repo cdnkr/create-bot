@@ -1,4 +1,3 @@
-import Card from "@/components/general/card";
 import { formatDateTime } from "@/utils/date";
 import axios from "axios";
 import Link from "next/link";
@@ -37,11 +36,15 @@ const BOT_TYPES = [
     link: '/app/bot/ai/new',
     icons: [<CgBrowser key={7} />, <PiRobot key={8} />]
   },
-]
+];
 
-export default async function AppHomePage() {
-  const userId = '5ab6b5e3-5cbe-48dd-8714-b97d5f090cc2';
+interface Props {
+  params: { userId: string }
+}
 
+const AppHomePage: React.FC<Props> = async ({
+  params: { userId },
+}) => {
   const response = await axios.get(`${process.env.APP_URL}/api/bot/by-user/${userId}`);
   const bots = response.data;
 
@@ -91,3 +94,5 @@ export default async function AppHomePage() {
     </div>
   );
 }
+
+export default AppHomePage;

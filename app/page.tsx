@@ -27,7 +27,7 @@ export default function Home() {
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
-            href="/app"
+            href="/app/5ab6b5e3-5cbe-48dd-8714-b97d5f090cc2"
           >
             <Button
               text="Start now"
