@@ -20,7 +20,7 @@ export default function Home() {
       <div>
         <h1
           className="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
-          Build a bot, quickly. Today.
+          Build a bot quickly, today.
         </h1>
         <p className="text-lg mt-4 text-slate-600 max-w-xl">
           Build WhatsApp or web flow based and AI chatbots. Deploy or add to your site instantly.
