@@ -74,10 +74,12 @@ This project provides a template to create a WhatsApp chatbot. It allows users t
 3. Show how to documentation/links/video on how to set up:
    - WhatsApp business number on Meta Developers console
    - access token/permanent access token
-4. ~~Assign verified phone number to flow~~ - show QR to test https://wa.me/{number}?text=hi 
+4. ~~Assign verified phone number to flow~~ - ~~show QR to test https://wa.me/{number}?text=hi~~ 
    - Bot config
       - ~~Input phone number~~
       - ~~Input `WHATSAPP_TOKEN` (used as auth for sending messages)~~
+      - Split to different stage/tab
+         - With info/hot-to content
 
 ## Prerequisites
 
