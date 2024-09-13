@@ -39,10 +39,10 @@ function Navbar() {
                             </div>
                         </>
                     ) : (
-                        <>
+                        <div className='transition-all hover:text-blue-500 flex items-center gap-1'>
                             <Link href='/login'>Login</Link>
                             <BiLogInCircle />
-                        </>
+                        </div>
                     )}
                 </div>
             </div>
