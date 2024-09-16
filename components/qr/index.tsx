@@ -25,7 +25,7 @@ function QR(props: Props) {
     
     if (qrImage) return (
         <Image
-            className='shadow-lg rounded-lg'
+            className='rounded-lg'
             src={qrImage}
             width={300}
             height={300}
