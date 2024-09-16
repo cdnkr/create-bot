@@ -67,16 +67,16 @@ export function useWhatsAppChatDemo(initialMessages: WhatsAppMessageType[]) {
     setTyping(false);
   };
 
-  useEffect(() => {
-    if (firstLoad) {
-      setFirstLoad(false);
+  // useEffect(() => {
+  //   if (firstLoad) {
+  //     setFirstLoad(false);
 
-      return;
-    }
-    bottomRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
-  }, [messages]);
+  //     return;
+  //   }
+  //   bottomRef.current?.scrollIntoView({
+  //     behavior: "smooth",
+  //   });
+  // }, [messages]);
 
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
