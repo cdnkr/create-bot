@@ -16,10 +16,12 @@ interface Props {
 }
 
 function Message({ message, setUserResponse, setMessages, editing = null }: Props) {
+  if (!message) return null;
+  
   return (
     // Message container
     <div
-      className={`flex justify-center items-center rounded-md w-fit my-1 ${message.type === 'interactive' ? 'min-w-44' : ''} ${!message.isBot ? "bg-[#005c4b] ml-auto" : "bg-[#202d33] mr-auto"}`}
+      className={`flex justify-center items-center rounded-md w-fit my-1 ${message?.type === 'interactive' ? 'min-w-44' : ''} ${!message?.isBot ? "bg-[#005c4b] ml-auto" : "bg-[#202d33] mr-auto"}`}
     >
 
       {/* Text (link/normal) message */}
