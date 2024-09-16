@@ -1,5 +1,6 @@
 import BuildWhatsAppBot from "@/components/bot/whatsapp";
 import Error from "@/components/error";
+import { createClient } from "@/utils/supabase/server";
 import axios from "axios";
 
 interface Props {
@@ -9,6 +10,10 @@ interface Props {
 const EditWhatsAppBotPage: React.FC<Props> = async ({
   params: { id },
 }) => {
+  const supabase = createClient();
+  
+  const { data: { user } } = await supabase.auth.getUser();
+
   const response = await axios.get(`${process.env.APP_URL}/api/bot/${id}`);
   if (!response?.data) return (
     <Error
@@ -21,11 +26,12 @@ const EditWhatsAppBotPage: React.FC<Props> = async ({
         path: '/'
       }}
     />
-  )
+  );
 
   return (
     <BuildWhatsAppBot
       botDetails={response.data}
+      user={user}
     />
   );
 }
