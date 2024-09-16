@@ -9,6 +9,7 @@ interface Props {
     className?: string;
     placeholder?: string;
     showBorderOnFocus?: boolean;
+    type?: string;
     _ref?: LegacyRef<HTMLInputElement>;
 }
 
@@ -20,6 +21,7 @@ function Input({
     className = '',
     placeholder = '',
     showBorderOnFocus = true,
+    type = 'text',
     _ref
 }: Props) {
     const focusBorder = showBorderOnFocus ? 'focus:border-blue-300' : '';
@@ -37,7 +39,7 @@ function Input({
                     ref={_ref}
                     value={value}
                     onChange={onChange}
-                    type='text'
+                    type={type}
                     className={`${className} ${icon ? 'ps-12' : ''} ${focusBorder} p-2.5 rounded-lg w-full text-base md:text-sm block bg-gray-100 placeholder-gray-400  border-transparent border-solid border-4 focus:outline-none`}
                     placeholder={placeholder}
                 />
