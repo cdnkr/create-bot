@@ -1,60 +1,29 @@
+import botTypes from "@/data/bot-types";
 import { formatDateTime } from "@/utils/date";
+import { createClient } from "@/utils/supabase/server";
 import axios from "axios";
 import Link from "next/link";
 import { Fragment } from "react";
-import { CgBrowser } from "react-icons/cg";
-import { FaWhatsapp } from "react-icons/fa";
-import { PiRobot } from "react-icons/pi";
-import { TiFlowChildren } from "react-icons/ti";
 
-const BOT_TYPES = [
-  {
-    type: 'whatsapp-flow-bot',
-    name: 'WhatsApp flow bot',
-    description: 'Create an interactive flow bot on WhatsApp.',
-    link: '/app/bot/whatsapp/new',
-    icons: [<FaWhatsapp key={1} />, <TiFlowChildren key={2} />]
-  },
-  {
-    type: 'whatsapp-ai-bot',
-    name: 'WhatsApp AI bot',
-    description: 'Create an AI powered bot for WhatsApp.',
-    link: '/app/bot/whatsapp/new',
-    icons: [<FaWhatsapp key={3} />, <PiRobot key={4} />]
-  },
-  {
-    type: 'web-flow-bot',
-    name: 'Web flow bot',
-    description: 'Create an interactive flow bot for your Website.',
-    link: '/app/bot/web/new',
-    icons: [<CgBrowser key={5} />, <TiFlowChildren key={6} />]
-  },
-  {
-    type: 'web-ai-bot',
-    name: 'Web AI bot',
-    description: 'Create an AI powered bot for your Website.',
-    link: '/app/bot/ai/new',
-    icons: [<CgBrowser key={7} />, <PiRobot key={8} />]
-  },
-];
+interface Props {}
 
-interface Props {
-  params: { userId: string }
-}
+const AppHomePage: React.FC<Props> = async () => {
+  const supabase = createClient();
+  
+  const { data: { user } } = await supabase.auth.getUser();
 
-const AppHomePage: React.FC<Props> = async ({
-  params: { userId },
-}) => {
-  const response = await axios.get(`${process.env.APP_URL}/api/bot/by-user/${userId}`);
+  if (!user) return null;
+
+  const response = await axios.get(`${process.env.APP_URL}/api/bot/by-user/${user.id}`);
   const bots = response.data;
 
   return (
     <div className="w-full flex flex-col gap-5">
       <div>
-        <h1 className="text-3xl font-bold">Hi Chad,&nbsp;<span className="font-light">what would you like to build today?</span></h1>
+        <h1 className="text-3xl font-bold">Hi {user.email},&nbsp;<span className="font-light">what would you like to build today?</span></h1>
       </div>
       <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-4 justify-items-center justify-center gap-5 mt-5 mb-5`}>
-        {BOT_TYPES.map((botType, i) => (
+        {botTypes.map((botType, i) => botType?.show !== false && (
           <Link key={i} href={botType.link} className='w-full'>
             <div className='group relative transition-all w-full bg-white flex shadow-md rounded-xl hover:shadow-xl overflow-hidden'>
               <div className='relative self-end mt-auto w-full'>
@@ -79,7 +48,7 @@ const AppHomePage: React.FC<Props> = async ({
       <h1 className="text-3xl font-bold"><span className="font-light">Pick up where you left off,</span></h1>
       <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-3 justify-items-center justify-center gap-5 mt-5 mb-5`}>
         {bots.map((botDetails: any) => (
-          <Link key={botDetails.id} href={`/app/bot/whatsapp/edit/${botDetails.id}`} className='w-full'>
+          <Link key={botDetails.id} href={`/app/bot/whatsapp/${botDetails.id}`} className='w-full'>
             <div className='group relative transition-all w-full bg-white flex shadow-md rounded-xl hover:shadow-xl overflow-hidden'>
               <div className='relative self-end mt-auto w-full'>
                 <div className='px-4 py-3 w-full mb-2'>
