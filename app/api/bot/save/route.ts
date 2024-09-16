@@ -6,7 +6,6 @@ export async function POST(request: Request) {
     try {
         // Parse the request body
         const body = await request.json();
-        const userId = '5ab6b5e3-5cbe-48dd-8714-b97d5f090cc2';
 
         const newBotId = v4();
         
@@ -15,7 +14,7 @@ export async function POST(request: Request) {
         .insert({
             id: newBotId,
             name: body.name,
-            user_id: userId, 
+            user_id: body.userId,
             templates: body.templates, 
             wa_number: body.waNumber,
             wa_access_token: body.waAccessToken
