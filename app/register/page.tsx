@@ -3,7 +3,6 @@
 import Button from "@/components/general/button";
 import Input from "@/components/general/input";
 import Logo from "@/components/layout/logo";
-import { createClient } from "@/utils/supabase/client";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,34 +10,28 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineLogin } from "react-icons/ai";
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const router = useRouter();
 
-  async function onLoginClick() {
+  async function onRegisterClick() {
     if (!email) {
       alert('Please enter an email');
     }
-    
-    const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    let response = await axios.post('/api/user/register', {
       email,
       password
     });
 
-    if (error) {
-      alert('Failed to login');
+    if (!response?.data?.user?.id) {
+      alert('Failed to register');
       return;
     }
 
-    router.push(`/app`);
-  }
-
-  async function onSignInWithGoogleLoginClick() {
-    await axios.get('/api/user/login/google');
+    alert('Please verify your email');
   }
 
   return (
@@ -60,20 +53,10 @@ export default function Login() {
             <Input type="password" placeholder="Password" className="bg-white" value={password} onChange={e => setPassword(e.target.value)} />
             <Button
               Icon={<AiOutlineLogin />}
-              text="Login"
+              text="Register"
               className="w-full"
-              onClick={onLoginClick}
+              onClick={onRegisterClick}
             />
-
-            <Button
-              Icon={<AiOutlineLogin />}
-              text="Sign in with google"
-              className="w-full"
-              onClick={onSignInWithGoogleLoginClick}
-            />
-            <form action={`/api/user/login/google`} method="get">
-              <Button type="submit" text="Sign in with google" />
-            </form>
           </div>
         </div>
       </div>
