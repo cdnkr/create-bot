@@ -9,6 +9,7 @@ interface Props {
     iconEnd?: boolean;
     color?: 'white' | 'black' | 'blue';
     hoverScale?: boolean;
+    type?: "button" | "submit" | "reset";
 }
 
 function Button({
@@ -19,7 +20,8 @@ function Button({
     Icon,
     iconEnd = false,
     color = 'black',
-    hoverScale = false
+    hoverScale = false,
+    type = 'button'
 }: Props) {
     const COLOR_STYLES = {
         black: 'text-white bg-black',
@@ -32,6 +34,7 @@ function Button({
             onClick={onClick}
             className={`${COLOR_STYLES[color]} ${hoverScale ? 'hover:scale-105' : ''} shrink-0 flex justify-center items-center gap-2 flex-nowrap text-nowrap focus:ring-blue-300 ${className} hover:bg-gradient-to-bl focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-3.5 text-center ${disabled ? 'opacity-50' : ''}`}
             disabled={disabled}
+            type={type}
         >
             {!iconEnd && (
                 <div className='text-lg'>
