@@ -8,7 +8,7 @@ const botTypes = [
         type: 'whatsapp-flow-bot',
         name: 'WhatsApp flow bot',
         description: 'Create an interactive flow bot on WhatsApp.',
-        link: '/app/bot/whatsapp/set-up/0',
+        link: '/app/bot/whatsapp/new',
         icons: [<FaWhatsapp key={1} />, <TiFlowChildren key={2} />]
     },
     {

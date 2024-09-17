@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ msg: `Bot created`, id: newBotId });
     } catch (error) {
         console.error('Error creating bot:', error);
-        return NextResponse.json({ error: 'Failed to create bot' }, { status: 500 });
+        return NextResponse.json({ error }, { status: 500 });
     }
 }
 

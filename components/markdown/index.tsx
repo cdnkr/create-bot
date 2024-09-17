@@ -26,13 +26,17 @@ const DisplayMarkdown = ({
       // Fetch the markdown file content
       const markdownContentResponse = await axios.get(markdownFileUrl);
 
-      markdownContent = markdownContentResponse.data;
+      console.log(markdownContentResponse);
+
+      markdownContent = markdownContentResponse.data?.content || markdownContentResponse.data.content;
     }
 
     if (typeof markdownContent !== 'string') return;
 
     // Convert markdown to HTML
     const htmlContent = await markdownToHtml(markdownContent);
+
+    console.log(htmlContent)
 
     contentRef.current.innerHTML = htmlContent;
   }

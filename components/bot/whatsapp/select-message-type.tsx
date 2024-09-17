@@ -7,7 +7,7 @@ import { FaExternalLinkSquareAlt, FaImage, FaReply, FaVideo } from 'react-icons/
 import { FaLocationDot, FaRectangleList } from 'react-icons/fa6';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { IoDocument, IoText } from 'react-icons/io5';
-import Message from './chat/message';
+import Message from './build/message';
 
 const ICONS: { [key: string]: React.ReactElement } = {
     text: <IoText />,
