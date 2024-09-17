@@ -7,7 +7,7 @@ interface Props {
     disabled?: boolean;
     Icon?: React.ReactElement;
     iconEnd?: boolean;
-    color?: 'white' | 'black' | 'blue';
+    color?: 'white' | 'black' | 'blue' | 'none';
     hoverScale?: boolean;
     type?: "button" | "submit" | "reset";
 }
@@ -26,7 +26,8 @@ function Button({
     const COLOR_STYLES = {
         black: 'text-white bg-black',
         white: 'text-black bg-white',
-        blue: 'text-white bg-blue-600'
+        blue: 'text-white bg-blue-600',
+        none: ''
     };
 
     return (

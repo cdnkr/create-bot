@@ -4,12 +4,9 @@ import Button from "@/components/general/button";
 import Input from "@/components/general/input";
 import Logo from "@/components/layout/logo";
 import { createClient } from "@/utils/supabase/client";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AiOutlineLogin } from "react-icons/ai";
 import { FaEnvelope, FaGoogle } from "react-icons/fa6";
 
 export default function Login() {
@@ -91,8 +88,9 @@ export default function Login() {
                   <Button
                     type="submit"
                     text="Continue with google"
-                    className="bg-[#EA4335] w-full"
+                    className="bg-[#EA4335] text-white w-full"
                     Icon={<FaGoogle />}
+                    color='none'
                   />
                 </form>
               </>
