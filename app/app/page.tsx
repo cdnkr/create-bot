@@ -5,9 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { Fragment } from "react";
 
-interface Props {}
-
-const AppHomePage: React.FC<Props> = async () => {
+const AppHomePage: React.FC = async () => {
   const supabase = createClient();
   
   const { data: { user } } = await supabase.auth.getUser();
@@ -20,7 +18,7 @@ const AppHomePage: React.FC<Props> = async () => {
   return (
     <div className="w-full flex flex-col gap-5">
       <div>
-        <h1 className="text-3xl font-bold">Hi {user.email},&nbsp;<span className="font-light">what would you like to build today?</span></h1>
+        <h1 className="text-3xl font-bold">Hi {user?.user_metadata?.name || user?.email || 'there'},&nbsp;<span className="font-light">what would you like to build today?</span></h1>
       </div>
       <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-4 justify-items-center justify-center gap-5 mt-5 mb-5`}>
         {botTypes.map((botType, i) => botType?.show !== false && (
