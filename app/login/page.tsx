@@ -10,24 +10,27 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineLogin } from "react-icons/ai";
-import { FaGoogle } from "react-icons/fa6";
+import { FaEnvelope, FaGoogle } from "react-icons/fa6";
 
 export default function Login() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
+  const [hasSentOTP, setHasSentOTP] = useState(false);
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  async function onLoginClick() {
+  async function onLoginClickWithEmailLink() {
     if (!email) {
       alert('Please enter an email');
     }
-    
+
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithOtp({
       email,
-      password
+      options: {
+        emailRedirectTo: `${process.env.APP_URL}`
+      }
     });
 
     if (error) {
@@ -35,12 +38,28 @@ export default function Login() {
       return;
     }
 
-    router.push(`/app`);
+    setHasSentOTP(true);
   }
 
-  async function onSignInWithGoogleLoginClick() {
-    await axios.get('/api/user/login/google');
-  }
+  // async function onLoginWithEmailPassword() {
+  //   if (!email) {
+  //     alert('Please enter an email');
+  //   }
+
+  //   const supabase = createClient();
+
+  //   const { error } = await supabase.auth.signInWithPassword({
+  //     email,
+  //     password
+  //   });
+
+  //   if (error) {
+  //     alert('Failed to login');
+  //     return;
+  //   }
+
+  //   router.push(`/app`);
+  // }
 
   return (
     <div className="max-w-full m-0 bg-transparent flex justify-center flex-1 mt-10">
@@ -57,22 +76,32 @@ export default function Login() {
             width={320}
           />
           <div className="flex flex-col gap-5 max-w-xl w-full">
-            <Input placeholder="Email" className="bg-white" value={email} onChange={e => setEmail(e.target.value)} />
-            <Input type="password" placeholder="Password" className="bg-white" value={password} onChange={e => setPassword(e.target.value)} />
-            <Button
-              Icon={<AiOutlineLogin />}
-              text="Login"
-              className="w-full"
-              onClick={onLoginClick}
-            />
-            <form action="/api/user/login/google" method="get">
-              <Button
-                type="submit"
-                text="Continue with google"
-                className="bg-[#EA4335] w-full"
-                Icon={<FaGoogle />}
-              />
-            </form>
+            {!hasSentOTP ? (
+              <>
+                <Input placeholder="Email" className="bg-white" value={email} onChange={e => setEmail(e.target.value)} />
+                {/* <Input type="password" placeholder="Password" className="bg-white" value={password} onChange={e => setPassword(e.target.value)} /> */}
+                <Button
+                  Icon={<FaEnvelope />}
+                  text="Continue with email"
+                  className="w-full"
+                  onClick={onLoginClickWithEmailLink}
+                />
+                <hr className="border-gray-400" />
+                <form action="/api/user/login/google" method="get">
+                  <Button
+                    type="submit"
+                    text="Continue with google"
+                    className="bg-[#EA4335] w-full"
+                    Icon={<FaGoogle />}
+                  />
+                </form>
+              </>
+            ) : (
+              <div className="w-full flex flex-col justify-start">
+                <h3 className="text-2xl text-left font-semibold mb-1">Email sent</h3>
+                <p className="text-left">An email has been sent to {email} with a magic🪄 link.<br />Click on the link to continue.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
