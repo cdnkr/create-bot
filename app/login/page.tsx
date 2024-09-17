@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineLogin } from "react-icons/ai";
+import { FaGoogle } from "react-icons/fa6";
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -64,15 +65,13 @@ export default function Login() {
               className="w-full"
               onClick={onLoginClick}
             />
-
-            <Button
-              Icon={<AiOutlineLogin />}
-              text="Sign in with google"
-              className="w-full"
-              onClick={onSignInWithGoogleLoginClick}
-            />
-            <form action={`/api/user/login/google`} method="get">
-              <Button type="submit" text="Sign in with google" />
+            <form action="/api/user/login/google" method="get">
+              <Button
+                type="submit"
+                text="Continue with google"
+                className="bg-[#EA4335] w-full"
+                Icon={<FaGoogle />}
+              />
             </form>
           </div>
         </div>
