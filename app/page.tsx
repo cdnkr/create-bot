@@ -1,12 +1,12 @@
 import Button from "@/components/general/button";
+import LoginInModal from "@/components/login/in-modal";
 import Image from "next/image";
-import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 
 export default function Home() {
   return (
     <main
-      className="grid lg:grid-cols-2 place-items-center pb-8 md:pb-24">
+      className="grid lg:grid-cols-2 gap-10 place-items-center pb-8 md:pb-24">
       <div className="pb-9 md:pb-6 md:py-6 md:order-1">
         <Image
           className="rounded-xl"
@@ -26,17 +26,17 @@ export default function Home() {
           Build WhatsApp or web flow based and AI chatbots. Deploy or add to your site instantly.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
-          <Link
-            href="/start"
-          >
-            <Button
-              text="Start now"
-              color="blue"
-              className="min-w-64"
-              Icon={<BsArrowRight />}
-              iconEnd
-            />
-          </Link>
+          <LoginInModal
+            TriggerEl={
+              <Button
+                text="Start now"
+                color="blue"
+                className="min-w-64 capitalize"
+                Icon={<BsArrowRight />}
+                iconEnd
+              />
+            }
+          />
         </div>
       </div>
     </main>

@@ -1,5 +1,6 @@
 'use client';
 
+import LoginInModal from '@/components/login/in-modal';
 import { createClient } from '@/utils/supabase/client';
 import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
@@ -51,10 +52,14 @@ function NavbarLinks() {
                     </div>
                 </>
             ) : (
-                <div className='transition-all hover:text-blue-500 flex items-center gap-1'>
-                    <Link href='/login'>Login</Link>
-                    <BiLogInCircle />
-                </div>
+                <LoginInModal
+                    TriggerEl={
+                        <div className='transition-all cursor-pointer hover:text-blue-500 flex items-center gap-1'>
+                            <span>Login</span>
+                            <BiLogInCircle />
+                        </div>
+                    }
+                />
             )}
         </>
     );
