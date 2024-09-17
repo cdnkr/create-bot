@@ -13,7 +13,7 @@ function Logo(props: Props) {
 
     return (
         <div className={`flex items-center ${className}`}>
-            <h1 className={`font-extrabold ${textClassName}`}>cr3ate<span className="text-blue-600">.</span><span className='font-light'>bot</span></h1>
+            <h1 className={`font-extrabold ${textClassName}`}>create<span className='font-light'><span className="text-blue-600">{'['}</span>bot<span className="text-blue-600">{']'}</span></span></h1>
         </div>
     )
 }
