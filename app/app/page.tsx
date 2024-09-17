@@ -7,7 +7,7 @@ import { Fragment } from "react";
 
 const AppHomePage: React.FC = async () => {
   const supabase = createClient();
-  
+
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) return null;
@@ -43,21 +43,25 @@ const AppHomePage: React.FC = async () => {
           </Link>
         ))}
       </div>
-      <h1 className="text-3xl font-bold"><span className="font-light">Pick up where you left off,</span></h1>
-      <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-3 justify-items-center justify-center gap-5 mt-5 mb-5`}>
-        {bots.map((botDetails: any) => (
-          <Link key={botDetails.id} href={`/app/bot/whatsapp/${botDetails.id}`} className='w-full'>
-            <div className='group relative transition-all w-full bg-white flex shadow-md rounded-xl hover:shadow-xl overflow-hidden'>
-              <div className='relative self-end mt-auto w-full'>
-                <div className='px-4 py-3 w-full mb-2'>
-                  <p className='text-lg font-bold text-gray-800 group-hover:text-black block truncate capitalize leading-6'>{botDetails.name}</p>
-                  <p className='text-blue-600 mr-3 text-xs leading-0 mt-1'>{formatDateTime(botDetails.created_at)}</p>
+      {bots && Array.isArray(bots) && (bots.length > 0) && (
+        <>
+          <h1 className="text-3xl font-bold"><span className="font-light">Pick up where you left off</span></h1>
+          <div className={`w-full mx-0 grid grid-cols-1 md:grid-cols-3 justify-items-center justify-center gap-5 mt-5 mb-5`}>
+            {bots.map((botDetails: any) => (
+              <Link key={botDetails.id} href={`/app/bot/whatsapp/${botDetails.id}`} className='w-full'>
+                <div className='group relative transition-all w-full bg-white flex shadow-md rounded-xl hover:shadow-xl overflow-hidden'>
+                  <div className='relative self-end mt-auto w-full'>
+                    <div className='px-4 py-3 w-full mb-2'>
+                      <p className='text-lg font-bold text-gray-800 group-hover:text-black block truncate capitalize leading-6'>{botDetails.name}</p>
+                      <p className='text-blue-600 mr-3 text-xs leading-0 mt-1'>{formatDateTime(botDetails.created_at)}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
