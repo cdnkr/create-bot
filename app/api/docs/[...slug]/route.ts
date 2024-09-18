@@ -42,14 +42,16 @@ export async function GET(request: Request, { params }: { params: { slug: string
       // If it's a directory, read the directory contents
       const fileNames = await fs.readdir(fullPath);
 
-      const filesContent: { [key: string]: string } = {};
+      const filesContent: { fileName: string, content: string }[] = [];
 
       for (const fileName of fileNames) {
         const filePath = path.join(fullPath, fileName);
         const fileContent = await fs.readFile(filePath, 'utf8');
 
-        const key = path.basename(fileName, '.md');
-        filesContent[key] = fileContent;
+        filesContent.push({
+          fileName,
+          content: fileContent
+        });
       }
 
       return NextResponse.json(filesContent);
