@@ -19,13 +19,15 @@ import { FaRegSave, FaWhatsapp } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
 import BuildWhatsAppBot from "./build";
 import WhatsAppChatConfig from "./config";
+import { Doc } from "@/types/doc";
 
 interface Props {
   botDetails?: IBotResponse;
   user: User | null;
+  docs: Doc[];
 }
 
-function EditWhatsAppChatBot({ botDetails, user }: Props) {
+function EditWhatsAppChatBot({ botDetails, user, docs }: Props) {
   const [initialTemplates] = useState(botDetails?.templates);
   const [initialMessages] = useState(botDetails?.templates ? [botDetails.templates['start']] : []);
 
@@ -173,6 +175,7 @@ function EditWhatsAppChatBot({ botDetails, user }: Props) {
             setWaNumber={setWaNumber}
             botName={botName}
             setBotName={setBotName}
+            docs={docs}
           />
         )}
         {tab === 'build bot' && (

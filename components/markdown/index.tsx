@@ -2,7 +2,7 @@
 
 import { markdownToHtml } from '@/utils/markdown';
 import axios from 'axios';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Props {
   markdownFileUrl?: string;
@@ -15,9 +15,11 @@ const DisplayMarkdown = ({
 }: Props) => {
   const contentRef = useRef<HTMLDivElement | null>(null);
 
-  console.log('hit')
+  const [content, setContent] = useState('');
 
-  loadMarkdown();
+  useEffect(() => {
+    loadMarkdown();
+  }, []);
 
   async function loadMarkdown() {
     if (!contentRef?.current) return;
@@ -36,14 +38,15 @@ const DisplayMarkdown = ({
     // Convert markdown to HTML
     const htmlContent = await markdownToHtml(markdownContent);
 
-    console.log(htmlContent)
-
-    contentRef.current.innerHTML = htmlContent;
+    console.log(htmlContent);
+    
+    setContent(htmlContent)
   }
 
+  const __html = content;
   return (
     <div
-      ref={contentRef}
+      dangerouslySetInnerHTML={{ __html }}
       className="prose prose-hr:my-1 prose-p:font-light prose-li:font-light prose-p:m-0 prose-li:m-0 my-5 w-full max-w-full"
     />
   );

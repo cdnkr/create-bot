@@ -28,10 +28,13 @@ const EditWhatsAppBotPage: React.FC<Props> = async ({
     />
   );
 
+  const docsResponse = await axios.get(`${process.env.APP_URL}/api/docs/whatsapp/how-to?html=true`);
+
   return (
     <EditWhatsAppBot
       botDetails={response.data}
       user={user}
+      docs={docsResponse.data}
     />
   );
 }

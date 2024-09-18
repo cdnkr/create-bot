@@ -2,7 +2,7 @@
 
 import { saveBot } from "@/actions/bot/save";
 import Button from "@/components/general/button";
-import { IBotResponse } from "@/types/bot";
+import { Doc } from "@/types/doc";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,14 +10,14 @@ import { BsArrowRight } from "react-icons/bs";
 import WhatsAppChatConfig from "./config";
 
 interface Props {
-  botDetails?: IBotResponse;
   user: User | null;
+  docs: Doc[];
 }
 
-function NewWhatsAppChatBot({ botDetails, user }: Props) {
-  const [waAccessToken, setWaAccessToken] = useState(botDetails?.wa_access_token || '');
-  const [waNumber, setWaNumber] = useState(botDetails?.wa_number || '');
-  const [botName, setBotName] = useState(botDetails?.name || '');
+function NewWhatsAppChatBot({ user, docs }: Props) {
+  const [waAccessToken, setWaAccessToken] = useState('');
+  const [waNumber, setWaNumber] = useState('');
+  const [botName, setBotName] = useState('');
 
   const router = useRouter();
 
@@ -54,6 +54,7 @@ function NewWhatsAppChatBot({ botDetails, user }: Props) {
           setWaNumber={setWaNumber}
           botName={botName}
           setBotName={setBotName}
+          docs={docs}
         />
       </div>
       <div className="w-full flex justify-center mt-5">

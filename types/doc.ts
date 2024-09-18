@@ -1,0 +1,1 @@
+export type Doc = { fileName: string, content: string };

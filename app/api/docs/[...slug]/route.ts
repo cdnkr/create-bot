@@ -1,9 +1,15 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
+import { Doc } from '@/types/doc';
+import { markdownToHtml } from '@/utils/markdown';
 
 export async function GET(request: Request, { params }: { params: { slug: string[] } }) {
   try {
+    const { searchParams } = new URL(request.url);
+
+    const isHtmlFormat = searchParams.get('html');
+
     // Get the dynamic path from the slug
     const slugPath = params.slug.join('/');
 
@@ -42,12 +48,16 @@ export async function GET(request: Request, { params }: { params: { slug: string
       // If it's a directory, read the directory contents
       const fileNames = await fs.readdir(fullPath);
 
-      const filesContent: { fileName: string, content: string }[] = [];
+      const filesContent: Doc[] = [];
 
       for (const fileName of fileNames) {
         const filePath = path.join(fullPath, fileName);
-        const fileContent = await fs.readFile(filePath, 'utf8');
+        let fileContent = await fs.readFile(filePath, 'utf8');
 
+        if (isHtmlFormat) {
+          fileContent = await markdownToHtml(fileContent);
+        }
+        
         filesContent.push({
           fileName,
           content: fileContent
