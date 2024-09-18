@@ -1,4 +1,4 @@
-### **Adding a Phone Number**
+<!-- ### **Adding a Phone Number** -->
 
 #### Step 1: Access WhatsApp Settings
 - In the WhatsApp Business API settings, you’ll see a section for **Getting Started**.

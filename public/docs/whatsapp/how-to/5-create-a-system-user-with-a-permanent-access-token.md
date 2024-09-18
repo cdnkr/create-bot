@@ -1,4 +1,4 @@
-### **Creating a System User with a Permanent Access Token**
+<!-- ### **Creating a System User with a Permanent Access Token** -->
 
 #### Step 1: Create a System User
 - Navigate to the **Business Settings** in Meta Business Manager: [https://business.facebook.com/settings/](https://business.facebook.com/settings/).
