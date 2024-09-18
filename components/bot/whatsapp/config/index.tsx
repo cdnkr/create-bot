@@ -70,7 +70,7 @@ function WhatsAppChatConfig({
                             </div>
                         </div>
                         {expanded.includes((i + 1).toString()) && <DisplayHtmlString content={content} />}
-                        {i === 3 && (
+                        {i === 2 && (
                             <div className="w-full p-4 bg-white shadow-lg rounded-lg">
                                 <Label label="WhatsApp Phone Number" />
                                 <Input
