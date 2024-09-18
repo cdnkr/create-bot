@@ -1,7 +1,17 @@
 import Input from "@/components/general/input";
 import Label from "@/components/general/label";
 import DisplayMarkdown from "@/components/markdown";
-import { FaChevronDown } from "react-icons/fa6";
+import { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
+
+const DOCS = [
+    'set up meta developers account',
+    'create a meta app with whatsapp business service',
+    'add a webhook',
+    'add a phone number',
+    'generate a temporary access token',
+    'create a system user with a permanent access token'
+]
 
 interface Props {
     waAccessToken: string;
@@ -20,39 +30,64 @@ function WhatsAppChatConfig({
     botName,
     setBotName
 }: Props) {
+    const [expanded, setExpanded] = useState<string[]>([]);
+
+    function toggleExpanded(key: string) {
+        if (expanded.includes(key)) {
+            setExpanded(exp => {
+                return exp.filter(str => str !== key)
+            });
+
+            return;
+        }
+
+        setExpanded(exp => {
+            return [...exp, key];
+        });
+    }
+
     return (
         <div className="w-full flex flex-col gap-3 mb-5">
             <div className="w-full flex flex-col gap-3">
-                <Label label="Bot Name" />
-                <Input
-                    value={botName}
-                    onChange={e => setBotName(e.target.value)}
-                    placeholder="E.g. My Bot"
-                />
-                <div className="border-b border-gray-400 py-2 flex items-center">
-                    <h1>Setting up a Meta Developers Account</h1>
-                    <div className="ml-auto">
-                        <FaChevronDown />
-                    </div>
+                <div className="w-full p-4 bg-white shadow-lg rounded-lg">
+                    <Label label="Bot Name" />
+                    <Input
+                        value={botName}
+                        onChange={e => setBotName(e.target.value)}
+                        placeholder="E.g. My Bot"
+                    />
                 </div>
-                <DisplayMarkdown markdownFileUrl="/api/docs/whatsapp/how-to/1" />
-                <DisplayMarkdown markdownFileUrl="/api/docs/whatsapp/how-to/2" />
-                <DisplayMarkdown markdownFileUrl="/api/docs/whatsapp/how-to/4" />
-                <Label label="WhatsApp Phone Number" />
-                <Input
-                    value={waNumber}
-                    onChange={e => setWaNumber(e.target.value)}
-                    placeholder="E.g. 27871234567"
-                />
-                <DisplayMarkdown markdownFileUrl="/api/docs/whatsapp/how-to/5" />
-                <DisplayMarkdown markdownFileUrl="/api/docs/whatsapp/how-to/6" />
-                <Label label="WhatsApp Access Token" />
-                <Input
-                    value={waAccessToken}
-                    onChange={e => setWaAccessToken(e.target.value)}
-                    placeholder="E.g. EAAGObFo..."
-                />
-                <DisplayMarkdown markdownFileUrl="/api/docs/whatsapp/how-to/3" />
+                {DOCS.map((docName, i) => (
+                    <>
+                        <div className="border-b cursor-pointer border-gray-400 py-2 flex items-center" onClick={() => toggleExpanded((i + 1).toString())}>
+                            <h1 className="capitalize">{docName}</h1>
+                            <div className="ml-auto">
+                                {expanded.includes((i + 1).toString()) ? <FaChevronUp /> : <FaChevronDown />}
+                            </div>
+                        </div>
+                        {expanded.includes((i + 1).toString()) && <DisplayMarkdown markdownFileUrl="/api/docs/whatsapp/how-to/1" />}
+                        {i === 3 && (
+                            <div className="w-full p-4 bg-white shadow-lg rounded-lg">
+                                <Label label="WhatsApp Phone Number" />
+                                <Input
+                                    value={waNumber}
+                                    onChange={e => setWaNumber(e.target.value)}
+                                    placeholder="E.g. 27871234567"
+                                />
+                            </div>
+                        )}
+                        {i === 5 && (
+                            <div className="w-full p-4 bg-white shadow-lg rounded-lg">
+                                <Label label="WhatsApp Access Token" />
+                                <Input
+                                    value={waAccessToken}
+                                    onChange={e => setWaAccessToken(e.target.value)}
+                                    placeholder="E.g. EAAGObFo..."
+                                />
+                            </div>
+                        )}
+                    </>
+                ))}
             </div>
         </div>
     );
