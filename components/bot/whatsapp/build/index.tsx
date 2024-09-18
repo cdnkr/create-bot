@@ -103,7 +103,7 @@ function BuildWhatsAppBot({ buildBotState }: Props) {
   useEffect(() => {
     if (templates[userResponse]) {
       setMessages((messages: WhatsAppMessageType[]) => [...messages, templates[userResponse]])
-    } else {
+    } else if ((messages.length === 0) && templates['start']) {
       setMessages((messages: WhatsAppMessageType[]) => [...messages, templates['start']])
     }
   }, [userResponse]);
