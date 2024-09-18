@@ -51,9 +51,9 @@ function WhatsAppChatConfig({
     }
 
     return (
-        <div className="w-full p-4 flex flex-col gap-3 mb-5">
+        <div className="w-full flex flex-col gap-3 mb-5">
             <div className="w-full flex flex-col gap-3">
-                <div className="w-full p-4 bg-white shadow-lg rounded-lg">
+                <div className="w-full p-4 bg-white shadow-lg rounded-lg mb-2">
                     <Label label="Bot Name" />
                     <Input
                         value={botName}
@@ -62,16 +62,20 @@ function WhatsAppChatConfig({
                     />
                 </div>
                 {docs.map(({ fileName, content }, i) => (
-                    <>
-                        <div className="border-b cursor-pointer border-gray-400 py-2 flex items-center" onClick={() => toggleExpanded((i + 1).toString())}>
-                            <h1 className="capitalize">{fileName.replace(/-/g, ' ').replace('.md', '').slice(2)}</h1>
+                    <div className="border-b border-slate-400 cursor-pointer pb-3">
+                        <div className="cursor-pointer py-2 flex items-center" onClick={() => toggleExpanded((i + 1).toString())}>
+                            <h1 className="capitalize font-bold">{fileName.replace(/-/g, ' ').replace('.md', '').slice(2)}</h1>
                             <div className="ml-auto">
                                 {expanded.includes((i + 1).toString()) ? <FaChevronUp /> : <FaChevronDown />}
                             </div>
                         </div>
-                        {expanded.includes((i + 1).toString()) && <DisplayHtmlString content={content} />}
+                        {expanded.includes((i + 1).toString()) && (
+                            <div className="mt-3">
+                                <DisplayHtmlString content={content} />
+                            </div>
+                        )}
                         {i === 2 && (
-                            <div className="w-full p-4 bg-white shadow-lg rounded-lg">
+                            <div className="w-full p-4 bg-white shadow-lg rounded-lg mt-2 mb-6">
                                 <Label label="WhatsApp Phone Number" />
                                 <Input
                                     value={waNumber}
@@ -80,8 +84,8 @@ function WhatsAppChatConfig({
                                 />
                             </div>
                         )}
-                        {i === 5 && (
-                            <div className="w-full p-4 bg-white shadow-lg rounded-lg">
+                        {i === 4 && (
+                            <div className="w-full p-4 bg-white shadow-lg rounded-lg mt-2 mb-6">
                                 <Label label="WhatsApp Access Token" />
                                 <Input
                                     value={waAccessToken}
@@ -90,7 +94,7 @@ function WhatsAppChatConfig({
                                 />
                             </div>
                         )}
-                    </>
+                    </div>
                 ))}
             </div>
         </div>
