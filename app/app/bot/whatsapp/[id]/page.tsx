@@ -1,4 +1,4 @@
-import BuildWhatsAppBot from "@/components/bot/whatsapp";
+import EditWhatsAppBot from "@/components/bot/whatsapp/edit";
 import Error from "@/components/error";
 import { createClient } from "@/utils/supabase/server";
 import axios from "axios";
@@ -29,7 +29,7 @@ const EditWhatsAppBotPage: React.FC<Props> = async ({
   );
 
   return (
-    <BuildWhatsAppBot
+    <EditWhatsAppBot
       botDetails={response.data}
       user={user}
     />

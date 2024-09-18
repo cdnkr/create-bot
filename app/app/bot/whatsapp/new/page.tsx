@@ -1,7 +1,5 @@
-import BuildWhatsAppBot from "@/components/bot/whatsapp";
-import Error from "@/components/error";
+import NewWhatsAppChatBot from "@/components/bot/whatsapp/new";
 import { createClient } from "@/utils/supabase/server";
-import axios from "axios";
 
 const NewWhatsAppBotPage: React.FC = async () => {
   const supabase = createClient();
@@ -9,7 +7,7 @@ const NewWhatsAppBotPage: React.FC = async () => {
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <BuildWhatsAppBot
+    <NewWhatsAppChatBot
       user={user}
     />
   );

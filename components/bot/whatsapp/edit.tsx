@@ -11,23 +11,21 @@ import { useWhatsAppChatDemo } from "@/hooks/whatsapp/useWhatsAppChatDemo";
 import { IBotResponse } from "@/types/bot";
 import { formatDateTime } from "@/utils/date";
 import { isEmptyObject } from "@/utils/object";
-import { isValidUUID } from "@/utils/uuid";
-import { usePathname } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { BsQrCode } from "react-icons/bs";
-import { FaRegSave, FaWhatsapp } from "react-icons/fa";
-import { IoCheckmarkDone } from "react-icons/io5";
-import { MdOutlineDateRange } from "react-icons/md";
-import WhatsAppChatConfig from "./config";
 import { User } from "@supabase/supabase-js";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { BsArrowRight, BsQrCode } from "react-icons/bs";
+import { FaRegSave, FaWhatsapp } from "react-icons/fa";
+import { MdOutlineDateRange } from "react-icons/md";
 import BuildWhatsAppBot from "./build";
+import WhatsAppChatConfig from "./config";
 
 interface Props {
   botDetails?: IBotResponse;
   user: User | null;
 }
 
-function WhatsAppChatBot({ botDetails, user }: Props) {
+function EditWhatsAppChatBot({ botDetails, user }: Props) {
   const [initialTemplates] = useState(botDetails?.templates);
   const [initialMessages] = useState(botDetails?.templates ? [botDetails.templates['start']] : []);
 
@@ -56,14 +54,14 @@ function WhatsAppChatBot({ botDetails, user }: Props) {
   const [showSelectMessageType, setShowSelectMessageType] = useState(false);
   const [showDoneModal, setShowDoneModal] = useState(false);
   const [templates, setTemplates] = useState<any>(initialTemplates || {});
-  const [waAccessToken, setWaAccessToken] = useState(botDetails?.wa_access_token || process.env.NEXT_PUBLIC_WA_AT || '');
-  const [waNumber, setWaNumber] = useState(botDetails?.wa_number || process.env.NEXT_PUBLIC_WA_TEST_NUMBER || '');
+  const [waAccessToken, setWaAccessToken] = useState(botDetails?.wa_access_token || '');
+  const [waNumber, setWaNumber] = useState(botDetails?.wa_number || '');
   const [botId, setBotId] = useState<string | null>(botDetails?.id || null);
   const [botName, setBotName] = useState(botDetails?.name || '');
-  const [tab, setTab] = useState('build bot');
 
-  const pathname = usePathname();
-  const isEditPage = pathname.includes('new');
+  const router = useRouter();
+
+  const [tab, setTab] = useState('build bot');
 
   function onSelectMessageTypeClick(key: string) {
     resetState(messageTypeInitializers[key]);
@@ -82,14 +80,7 @@ function WhatsAppChatBot({ botDetails, user }: Props) {
     if (newBotId) setBotId(newBotId);
   }
 
-  // TODO: re-enable later for drafts
-  // useEffect(() => {
-  //   if (isEmptyObject(templates)) return;
-  //   console.log(templates);
-  //   handleSaveBot(templates);
-  // }, [templates]);
-
-  function onDoneClick() {
+  async function onDoneClick() {
     if (isEmptyObject(templates)) return;
     console.log(templates);
     handleSaveBot(templates);
@@ -131,7 +122,7 @@ function WhatsAppChatBot({ botDetails, user }: Props) {
         <div className="w-full flex items-center">
           <div>
             <div className="w-full flex gap-2 text-3xl ">
-              <h1 className="font-bold">{botName || 'New WhatsApp Bot'}</h1>
+              <h1 className="font-bold">{botName}</h1>
             </div>
             <div className="h-1" />
             {botDetails && (
@@ -207,14 +198,15 @@ function WhatsAppChatBot({ botDetails, user }: Props) {
       />
       <div className="w-full flex justify-center mt-5">
         <Button
-          text={isEditPage ? "Done" : "Save"}
-          Icon={isEditPage ? <IoCheckmarkDone /> : <FaRegSave />}
+          text="Save"
+          Icon={<FaRegSave />}
           className="w-full md:w-80"
-          onClick={(onDoneClick)}
+          onClick={onDoneClick}
+          iconEnd
         />
       </div>
     </div>
   );
 }
 
-export default WhatsAppChatBot;
+export default EditWhatsAppChatBot;
