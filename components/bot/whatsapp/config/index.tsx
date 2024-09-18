@@ -62,7 +62,7 @@ function WhatsAppChatConfig({
                     />
                 </div>
                 {docs.map(({ fileName, content }, i) => (
-                    <div className="border-b border-slate-400 cursor-pointer pb-3">
+                    <div key={fileName} className="border-b border-slate-400 cursor-pointer pb-3">
                         <div className="cursor-pointer py-2 flex items-center" onClick={() => toggleExpanded((i + 1).toString())}>
                             <h1 className="capitalize font-bold">{fileName.replace(/-/g, ' ').replace('.md', '').slice(2)}</h1>
                             <div className="ml-auto">
