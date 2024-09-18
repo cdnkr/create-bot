@@ -1,4 +1,4 @@
-### 6. **Creating a System User with a Permanent Access Token**
+### **Creating a System User with a Permanent Access Token**
 
 #### Step 1: Create a System User
 - Navigate to the **Business Settings** in Meta Business Manager: [https://business.facebook.com/settings/](https://business.facebook.com/settings/).
@@ -14,5 +14,5 @@
 - Select the app and the necessary permissions (e.g., `whatsapp_business_management`, `whatsapp_business_messaging`).
 - This will create a **Permanent Access Token** that does not expire.
 
-#### Step 4: Save the Token
-- Copy the permanent token and store it securely. This token will be used for making authorized API requests.
+<!-- #### Step 4: Save the Token
+- Copy the permanent token and store it securely. This token will be used for making authorized API requests. -->

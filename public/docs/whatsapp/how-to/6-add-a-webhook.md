@@ -1,4 +1,4 @@
-### 3. **Adding the Webhook**
+### **Adding the Webhook**
 
 #### Step 1: Access Webhooks Settings
 - In the **App Dashboard**, navigate to **WhatsApp** > **Getting Started**.

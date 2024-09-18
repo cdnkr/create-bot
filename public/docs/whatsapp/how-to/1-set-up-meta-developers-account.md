@@ -1,5 +1,3 @@
-### 1. **Setting up a Meta Developers Account**
-
 #### Step 1: Go to Meta for Developers
 - Open your browser and navigate to the Meta for Developers portal: [https://developers.facebook.com/](https://developers.facebook.com/).
 

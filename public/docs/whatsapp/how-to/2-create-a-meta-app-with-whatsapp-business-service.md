@@ -1,5 +1,3 @@
-### 2. **Creating an App with the WhatsApp Business Service**
-
 #### Step 1: Create a New App
 - Once logged in to the Meta Developer Portal, go to **My Apps** and click on **Create App**.
 - Choose **Business** as the app type.

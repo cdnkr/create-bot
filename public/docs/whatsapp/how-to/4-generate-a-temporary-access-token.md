@@ -1,4 +1,4 @@
-### 5. **Generating a Temporary Access Token**
+### **Generating a Temporary Access Token**
 
 #### Step 1: Generate Token
 - Go to your **App Dashboard** and select the **WhatsApp** product.
